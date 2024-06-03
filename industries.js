@@ -12,15 +12,14 @@ buttons.forEach(button => {
     });
 });
 
-// Corrected closeModal function:
 function closeModal(modalId) {
     document.getElementById(modalId).style.display = 'none';
-    initialContainer.style.display = 'block'; // Show initial container
+    initialContainer.style.display = 'block';
 }
 
 function finalChoice(industry) {
     alert(`You've chosen the ${industry} industry! Prepare for the challenge!`);
-    initialContainer.style.display = 'none'; 
+    initialContainer.style.display = 'none';
 
-    // ... Your game logic based on the industry choice ... 
+    // Additional logic for the chosen industry can be added here.
 }
