@@ -10,7 +10,7 @@
 <body>
     <div class="background">
         <img src="images/city.png" alt="City Background" class="city-bg">
-        <div class="container">
+        <div class="container" id="initialContainer">
             <div class="dialog-box">
                 <p>Which Industry will<br> you dominate?</p>
                 <div class="button-group">
@@ -31,9 +31,14 @@
             <h2>Technology</h2>
             <p><strong>Pros:</strong> High chance of riches!</p>
             <p><strong>Cons:</strong> Risky investments, potential for early failure.</p>
-            <button class="retro-btn" onclick="finalChoice('Technology')">
-                <span class="button-text">Choose Wisely</span>
-            </button>
+            <div class="button-group"> 
+                <button class="retro-btn" onclick="closeModal('techModal')">
+                    <span class="button-text">Go Back</span>
+                </button>
+                <button class="retro-btn" onclick="finalChoice('Technology')">
+                    <span class="button-text">Choose Wisely</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -43,9 +48,14 @@
             <h2>Manufacturing</h2>
             <p><strong>Pros:</strong> Tech needs you! Low risk, steady growth.</p>
             <p><strong>Cons:</strong> Can you predict the future of tech?</p>
-            <button class="retro-btn" onclick="finalChoice('Manufacturing')">
-                <span class="button-text">Choose Wisely</span>
-            </button>
+            <div class="button-group">
+                <button class="retro-btn" onclick="closeModal('manufacturingModal')">
+                    <span class="button-text">Go Back</span>
+                </button>
+                <button class="retro-btn" onclick="finalChoice('Manufacturing')">
+                    <span class="button-text">Choose Wisely</span>
+                </button>
+            </div>
         </div>
     </div>
 
