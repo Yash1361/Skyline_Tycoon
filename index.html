@@ -42,6 +42,19 @@
         </div>
     </div>
 
+    <div id="otpModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('otpModal')">&times;</span>
+            <h2>Enter OTP</h2>
+            <form id="otpForm">
+                <input type="text" id="otpEmail" placeholder="Email" required>
+                <input type="text" id="otpCode" placeholder="OTP" required>
+                <button type="submit">Verify OTP</button>
+            </form>
+            <p id="otpError" style="color:red;"></p>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
