@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industries</title>
+    <link rel="stylesheet" href="industries.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="background">
+        <img src="images/city.png" alt="City Background" class="city-bg">
+        <div class="retro-box">
+            <h1>Which Industry would you like to join?</h1>
+            <div class="buttons">
+                <button class="retro-btn" onclick="showModal('tech')"><i class="fas fa-laptop-code"></i> Technology</button>
+                <button class="retro-btn" onclick="showModal('manufacturing')"><i class="fas fa-industry"></i> Manufacturing</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="techModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('techModal')">&times;</span>
+            <h2>Technology Industry</h2>
+            <p><strong>Pros:</strong> High chance of making a lot of money.</p>
+            <p><strong>Cons:</strong> Requires significant investment and can fail in early stages.</p>
+            <div class="modal-buttons">
+                <button onclick="closeModal('techModal')">Go Back</button>
+                <button onclick="finalChoice('Technology')">Final Industry</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="manufacturingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('manufacturingModal')">&times;</span>
+            <h2>Manufacturing Industry</h2>
+            <p><strong>Pros:</strong> Every tech firm needs manufacturing firms, so not a lot of risk.</p>
+            <p><strong>Cons:</strong> Need to anticipate what kind of product will be useful in the future and invest accordingly.</p>
+            <div class="modal-buttons">
+                <button onclick="closeModal('manufacturingModal')">Go Back</button>
+                <button onclick="finalChoice('Manufacturing')">Final Industry</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="industries.js"></script>
+</body>
+</html>

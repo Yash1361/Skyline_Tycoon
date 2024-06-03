@@ -18,11 +18,12 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('loginModal')">&times;</span>
             <h2>Login</h2>
-            <form>
-                <input type="text" placeholder="Username" required>
-                <input type="password" placeholder="Password" required>
+            <form id="loginForm">
+                <input type="text" id="loginUsername" placeholder="Username" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
                 <button type="submit">Login</button>
             </form>
+            <p id="loginError" style="color:red;"></p>
             <p>Don't have an account? <a href="#" onclick="showSignUpModal()">Sign Up</a></p>
         </div>
     </div>
@@ -31,12 +32,13 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('signUpModal')">&times;</span>
             <h2>Sign Up</h2>
-            <form>
-                <input type="text" placeholder="Username" required>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
+            <form id="signUpForm">
+                <input type="text" id="signUpUsername" placeholder="Username" required>
+                <input type="email" id="signUpEmail" placeholder="Email" required>
+                <input type="password" id="signUpPassword" placeholder="Password" required>
                 <button type="submit">Sign Up</button>
             </form>
+            <p id="signUpError" style="color:red;"></p>
         </div>
     </div>
 
