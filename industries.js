@@ -1,16 +1,22 @@
-function showModal(industry) {
-    if (industry === 'tech') {
-        document.getElementById('techModal').style.display = 'block';
-    } else if (industry === 'manufacturing') {
-        document.getElementById('manufacturingModal').style.display = 'block';
-    }
-}
+const buttons = document.querySelectorAll('.retro-btn');
+const modals = document.querySelectorAll('.modal');
+const closeButtons = document.querySelectorAll('.close');
 
-function closeModal(modalId) {
-    document.getElementById(modalId).style.display = 'none';
-}
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        const targetModalId = button.getAttribute('data-target');
+        const modal = document.getElementById(targetModalId);
+        modal.style.display = 'block';
+    });
+});
+
+closeButtons.forEach(closeButton => {
+    closeButton.addEventListener('click', () => {
+        closeButton.parentElement.parentElement.style.display = 'none';
+    });
+});
 
 function finalChoice(industry) {
-    alert('You have chosen the ' + industry + ' industry!');
-    // You can add further logic here if needed
+    alert(`You've chosen the ${industry} industry! Prepare for the challenge!`);
+    // Add your game logic to proceed based on the industry choice
 }
