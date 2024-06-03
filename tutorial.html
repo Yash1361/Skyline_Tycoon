@@ -191,7 +191,7 @@
                 typeText(textAndImages[currentIndex]);
             } else {
                 const username = new URLSearchParams(window.location.search).get('username');
-                window.location.href = `ag.html?username=${username}`;
+                window.location.href = `industries.html?username=${username}`;
             }
         });
 
@@ -220,7 +220,7 @@
         // Event listener for the Skip button
         document.getElementById('skipButton').addEventListener('click', function () {
             const username = new URLSearchParams(window.location.search).get('username');
-            window.location.href = `ag.html?username=${username}`;
+            window.location.href = `industries.html?username=${username}`;
         });
     </script>
 </body>

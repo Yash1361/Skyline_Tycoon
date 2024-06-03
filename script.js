@@ -11,6 +11,8 @@ function showSignUpModal() {
     document.getElementById('signUpModal').style.display = 'block';
 }
 
+let otpEmail = '';
+
 document.getElementById('loginForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
@@ -52,7 +54,8 @@ document.getElementById('signUpForm').addEventListener('submit', async function(
         const data = await response.json();
 
         if (response.ok) {
-            showOtpModal(email);
+            otpEmail = email;
+            showOtpModal();
         } else {
             document.getElementById('signUpError').innerText = data.message || 'Signup failed';
         }
@@ -61,23 +64,21 @@ document.getElementById('signUpForm').addEventListener('submit', async function(
     }
 });
 
-function showOtpModal(email) {
+function showOtpModal() {
     document.getElementById('signUpModal').style.display = 'none';
     document.getElementById('otpModal').style.display = 'block';
-    document.getElementById('otpEmail').value = email;
 }
 
 document.getElementById('otpForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
-    const email = document.getElementById('otpEmail').value;
     const otp = document.getElementById('otpCode').value;
 
     try {
         const response = await fetch('/verify-otp', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, otp })
+            body: JSON.stringify({ email: otpEmail, otp })
         });
 
         const data = await response.json();
