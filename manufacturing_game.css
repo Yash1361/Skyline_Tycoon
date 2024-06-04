@@ -184,6 +184,36 @@ body, html {
     background-color: #555;
 }
 
+.leaderboard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #222;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.leaderboard-rank {
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+.leaderboard-icon img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.leaderboard-info {
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.leaderboard-info p {
+    margin: 0;
+}
+
 .modal {
     display: none;
     position: fixed;
