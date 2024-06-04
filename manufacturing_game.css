@@ -34,6 +34,26 @@ body, html {
     z-index: 2;
 }
 
+.info-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.character-icon img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.info-text {
+    margin-left: 10px;
+}
+
+.info-text p {
+    margin: 0;
+}
+
 .navbar {
     display: flex;
     justify-content: space-around;
