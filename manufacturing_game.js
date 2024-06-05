@@ -18,24 +18,33 @@ document.addEventListener('DOMContentLoaded', () => {
     function unlockInvestment(investment) {
         const investmentType = investment.dataset.investment;
         const unlockButton = investment.querySelector('.unlock-btn');
-        const cost = parseInt(unlockButton.dataset.cost);
+        const cost = parseInt(unlockButton.dataset.cost.replace(/,/g, ''), 10); // Ensure cost is parsed correctly
+
+        console.log(`Trying to unlock ${investmentType} with cost ${cost} and current money ${currentMoney}`); // Debugging line
 
         if (currentMoney >= cost) {
             updateMoney(-cost);
             investment.classList.remove('locked');
 
-            // After unlocking, replace unlock button with buy button
+            // After unlocking, replace unlock button with buy button and update stats
+            const baseCost = investmentType === 'chips' ? 1000 : investmentType === 'cars' ? 10000 : 26.24; // Base cost for chips and cars
+            const outputValue = investmentType === 'chips' ? 10000 : investmentType === 'cars' ? 100000 : 100;
             const buyButtonHTML = `
-                <button class="buy-btn" data-cost="${cost * 10}">Buy x1</button>
-                <p class="cost">${(cost * 10).toLocaleString()}</p>
+                <button class="buy-btn" data-cost="${baseCost}">Buy x1</button>
+                <p class="cost">${baseCost.toLocaleString()}</p>
+            `;
+            const investmentStatsHTML = `
+                <p>Owned: <span id="${investmentType}-quantity">0</span>/10</p>
+                <p>Output: <span class="output">${outputValue}</span> / sec</p>
             `;
             investment.querySelector('.investment-actions').innerHTML = buyButtonHTML;
+            investment.querySelector('.investment-stats').innerHTML = investmentStatsHTML;
 
             // Add event listener to the new buy button
             const newBuyButton = investment.querySelector('.buy-btn');
             newBuyButton.addEventListener('click', () => handleBuy(investment));
         } else {
-            alert('Not enough money to unlock!');
+            console.log('Not enough money to unlock!'); // Debugging line
         }
     }
 
@@ -47,14 +56,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const quantityDisplay = investment.querySelector('#' + investmentType + '-quantity');
         let ownedQuantity = parseInt(quantityDisplay.textContent);
 
-        const cost = parseInt(buyButton.dataset.cost);
+        const cost = parseInt(buyButton.dataset.cost.replace(/,/g, ''), 10); // Ensure cost is parsed correctly
+        console.log(`Trying to buy ${investmentType} with cost ${cost} and current money ${currentMoney}`); // Debugging line
+
         if (currentMoney >= cost && ownedQuantity < 10) {
             updateMoney(-cost);
             ownedQuantity++;
             quantityDisplay.textContent = ownedQuantity;
 
             // Update the buy button's cost for the next purchase (e.g., increase by 1.5x)
-            const newCost = Math.round(cost * 1.5); 
+            const newCost = Math.round(cost * 1.5);
             buyButton.dataset.cost = newCost;
             costDisplay.textContent = newCost.toLocaleString();
 
@@ -67,9 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateEarnings(100000);
             }
         } else if (ownedQuantity >= 10) {
-            alert("You've reached the maximum ownership limit for this investment!");
+            console.log("You've reached the maximum ownership limit for this investment!"); // Debugging line
         } else {
-            alert('Not enough money to buy!');
+            console.log('Not enough money to buy!'); // Debugging line
         }
     }
 
@@ -96,7 +107,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const buyButton = investment.querySelector('.buy-btn');
 
         if (unlockButton) {
-            unlockButton.addEventListener('click', () => unlockInvestment(investment));
+            console.log(`Adding unlock event listener to ${investment.dataset.investment}`); // Debugging line
+            unlockButton.addEventListener('click', () => {
+                console.log(`Unlock button clicked for ${investment.dataset.investment}`); // Debugging line
+                unlockInvestment(investment);
+            });
         }
 
         if (buyButton) {
@@ -110,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // actual sabotage logic based on the action and target.
         // For example, you could have functions like:
         // fileLawsuit(target) and sendSpy(target)
-        alert(`You are attempting to ${action} ${target}. This functionality is under construction.`); 
+        console.log(`You are attempting to ${action} ${target}. This functionality is under construction.`); 
     }
 
     // Event listener for sabotage buttons
@@ -118,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sabotageButtons.forEach(button => {
         button.addEventListener('click', () => {
             const action = button.dataset.action;
-            const target = button.parentElement.parentElement.querySelector('h3').textContent; 
+            const target = button.parentElement.parentElement.querySelector('h3').textContent;
             handleSabotage(action, target);
         });
     });
@@ -130,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.style.display = 'flex';
     }
 
-    window.openModal = openModal; 
+    window.openModal = openModal;
 
     function closeModal() {
         modal.style.display = 'none';
@@ -139,6 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.closeModal = closeModal;
 
     setInterval(() => {
-        updateMoney(earningsPerMin / 60); 
-    }, 1000); 
+        updateMoney(earningsPerMin / 60);
+    }, 1000);
 });

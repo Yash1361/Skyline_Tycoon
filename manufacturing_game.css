@@ -183,6 +183,12 @@ h2 {
     cursor: default;
 }
 
+/* Ensure unlock-btn remains clickable */
+.locked .unlock-btn {
+    pointer-events: auto;
+    background-color: #39d1b4;
+    cursor: pointer;
+}
 
 .target-list,
 .leaderboard-list {
