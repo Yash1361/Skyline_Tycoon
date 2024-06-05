@@ -43,30 +43,31 @@ document.addEventListener('DOMContentLoaded', () => {
         earningsDisplay.textContent = `Earnings/Min: $${earningsPerMin.toLocaleString()}`;
     }
 
+    // Function to create an investment element (modified for new HTML structure)
     function createInvestmentElement(investmentKey, investmentData) {
         const investmentDiv = document.createElement('div');
         investmentDiv.classList.add('investment', investmentKey === 'solar' ? 'active' : 'locked');
         investmentDiv.dataset.investment = investmentKey;
-        
+
         const isUnlocked = investmentKey === 'solar';
-        
+
         investmentDiv.innerHTML = `
             <div class="investment-header">
-                <i class="${investmentData.icon}"></i> 
+                <i class="${investmentData.icon}"></i>
                 <h3>${investmentData.name}</h3>
             </div>
             <p>${investmentData.description}</p>
             <div class="investment-stats">
                 ${isUnlocked ? 
                     `<p>Owned: <span id="${investmentKey}-quantity">0</span>/10</p>
-                    <p>Output: <span class="output">${investmentData.output}</span> / sec</p>` 
-                    : 
+                    <p>Output: <span class="output">${investmentData.output}</span> / sec</p>`
+                    :
                     `<p>Unlock Cost: <span class="cost">$${investmentData.unlockCost.toLocaleString()}</span></p>`
                 }
             </div>
             <div class="investment-actions">
-                ${isUnlocked ? 
-                    `<button class="buy-btn" data-cost="${investmentData.baseCost}">Buy x1</button>
+                ${isUnlocked ?
+                    `<button class="buy-btn" data-cost="${investmentData.baseCost}">Acquire (1x)</button>
                     <p class="cost">$${investmentData.baseCost.toLocaleString()}</p>`
                     :
                     `<button class="buy-btn unlock-btn" data-cost="${investmentData.unlockCost}">Unlock</button>`

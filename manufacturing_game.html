@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manufacturing Empire</title>
-    <link rel="stylesheet" href="manufacturing_game.css">
+    <title>CyberCorp Tycoon</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="manufacturing_game.css">
 </head>
 <body>
     <div class="game-container">
@@ -13,22 +13,22 @@
             <div class="player-info">
                 <img src="images/login-page Background Removed.png" alt="Avatar" id="player-avatar">
                 <div class="stats">
-                    <p><span id="bonus">Bonus: 0x</span></p>
-                    <p><span id="current-money">Money: $200,000</span></p>
-                    <p><span id="earnings-per-min">Earnings/Min: $0</span></p>
+                    <p><span class="data" id="bonus">Processing Power: 0x</span></p>
+                    <p><span class="data" id="current-money">Credits: $200,000</span></p>
+                    <p><span class="data" id="earnings-per-min">Credit Flow/s: $0</span></p>
                 </div>
             </div>
             <nav class="game-nav">
                 <button class="nav-btn active" data-target="invest">Invest</button>
-                <button class="nav-btn" data-target="sabotage">Sabotage</button>
-                <button class="nav-btn" data-target="leaderboard">Leaderboard</button>
+                <button class="nav-btn" data-target="sabotage">Disrupt</button>
+                <button class="nav-btn" data-target="leaderboard">Cyber Titans</button>
             </nav>
         </div>
 
         <div class="game-content">
 
             <div class="tab-content active" id="invest">
-                <h2>Invest Your Capital</h2>
+                <h2>Allocate Resources</h2>
                 <div class="investment-grid">
                     </div>
             </div>
@@ -75,11 +75,11 @@
                             <button class="sabotage-btn" data-action="spy">Send Spy</button>
                         </div>
                     </div>
-                </div>
+                    </div>
             </div>
 
             <div class="tab-content" id="leaderboard"> 
-                <h2>Industry Titans</h2>
+                <h2>Cyber Titans</h2>
                 <div class="leaderboard-list">
                     <div class="leader">
                         <span class="leader-rank">1.</span>
@@ -108,7 +108,7 @@
                             <p>Earnings/Min: $15,000</p>
                         </div>
                     </div>
-                </div>
+                    </div>
             </div>
 
         </div>
