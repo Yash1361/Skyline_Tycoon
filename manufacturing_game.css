@@ -525,10 +525,6 @@ h2 { /* Section headings */
     gap: 20px;
 }
 
-.target {
-    /* ... similar styles as .investment */
-}
-
 /* Leaderboard Styling */
 .leaderboard-list {
     display: flex;
