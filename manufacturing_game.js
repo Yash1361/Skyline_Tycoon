@@ -38,7 +38,7 @@ function buyInvestment(type, cost) {
                     </div>
                 </div>
                 <div class="investment-buy">
-                    <button onclick="buyInvestment('more-chips', 17.606)">Buy x25</button>
+                    <button onclick="buyInvestment('more-chips', 17.606)">Buy x1</button>
                     <p>17.606 quadrillion</p>
                 </div>
             `;
@@ -58,28 +58,28 @@ function buyInvestment(type, cost) {
                     </div>
                 </div>
                 <div class="investment-buy">
-                    <button onclick="buyInvestment('more-cars', 606.26)">Buy x100</button>
+                    <button onclick="buyInvestment('more-cars', 606.26)">Buy x1</button>
                     <p>606.26 quadrillion</p>
                 </div>
             `;
         } else if (type === 'solar') {
             // Logic for buying solar panels
             let quantity = parseInt(document.getElementById('solar-quantity').innerText);
-            quantity += 100; // Assuming buy x100
+            quantity += 1; // Assuming buy x1
             document.getElementById('solar-quantity').innerText = quantity;
 
             // Further logic for solar panel purchase
         } else if (type === 'more-chips') {
             // Logic for buying more chips
             let quantity = parseInt(document.getElementById('chips-quantity').innerText);
-            quantity += 25; // Assuming buy x25
+            quantity += 1; // Assuming buy x1
             document.getElementById('chips-quantity').innerText = quantity;
 
             // Further logic for chips purchase
         } else if (type === 'more-cars') {
             // Logic for buying more cars
             let quantity = parseInt(document.getElementById('cars-quantity').innerText);
-            quantity += 100; // Assuming buy x100
+            quantity += 1; // Assuming buy x1
             document.getElementById('cars-quantity').innerText = quantity;
 
             // Further logic for car purchase
