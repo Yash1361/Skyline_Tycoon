@@ -5,137 +5,138 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manufacturing Game</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="manufacturing_game.css">
 </head>
 <body>
-    <div class="container">
-        <img src="images/city.png" alt="City Background" class="background">
-        <div class="box">
-            <div class="info-bar">
-                <div class="character-icon">
+    <div class="container-fluid">
+        <div class="box container">
+            <div class="row info-bar">
+                <div class="col-auto character-icon">
                     <img src="images/login-page Background Removed.png" alt="Character Icon">
                 </div>
-                <div class="info-text">
+                <div class="col info-text">
                     <p id="bonus">Bonus: 0x</p>
-                    <p id="current-money">Current Money: $20000</p>
+                    <p id="current-money">Current Money: $300000</p>
                     <p id="earnings-per-min">Earnings/Min: $0/min</p>
                 </div>
             </div>
-            <div class="navbar">
-                <button onclick="showTab('invest')">Invest</button>
-                <button onclick="showTab('sabotage')">Sabotage</button>
-                <button onclick="showTab('leaderboard')">Leaderboard</button>
+            <div class="row navbar">
+                <button class="btn btn-primary col" onclick="showTab('invest')">Invest</button>
+                <button class="btn btn-secondary col" onclick="showTab('sabotage')">Sabotage</button>
+                <button class="btn btn-success col" onclick="showTab('leaderboard')">Leaderboard</button>
             </div>
             <div class="content" id="invest">
                 <h2>Here you invest</h2>
-                <div class="investment" id="investment-solar">
-                    <div class="investment-icon">
+                <div class="investment row" id="investment-solar">
+                    <div class="investment-icon col-auto">
                         <i class="fas fa-solar-panel"></i>
                     </div>
-                    <div class="investment-info">
+                    <div class="investment-info col">
                         <p>0/10</p>
                         <div class="earnings">
                             <p>100 / sec</p>
-                            <button class="small-btn">0s</button>
+                            <button class="small-btn btn btn-warning">0s</button>
                         </div>
                     </div>
-                    <div class="investment-buy">
-                        <button>Buy x100</button>
+                    <div class="investment-buy col-auto">
+                        <button class="btn btn-info">Buy x100</button>
                         <p>26.24 quadrillion</p>
                     </div>
                 </div>
-                <div class="investment locked" id="investment-chips">
-                    <div class="investment-icon">
+                <div class="investment row locked" id="investment-chips">
+                    <div class="investment-icon col-auto">
                         <i class="fas fa-lock"></i>
                     </div>
-                    <div class="investment-info">
+                    <div class="investment-info col">
                         <p>Invest in Chips</p>
-                        <button class="buy-btn" onclick="buyInvestment('chips', 20000)">Buy for $20000</button>
+                        <button class="buy-btn btn btn-danger" onclick="buyInvestment('chips', 20000)">Buy for $20000</button>
                     </div>
                 </div>
-                <div class="investment locked" id="investment-cars">
-                    <div class="investment-icon">
+                <div class="investment row locked" id="investment-cars">
+                    <div class="investment-icon col-auto">
                         <i class="fas fa-lock"></i>
                     </div>
-                    <div class="investment-info">
+                    <div class="investment-info col">
                         <p>Invest in Electric Cars</p>
-                        <button class="buy-btn" onclick="buyInvestment('cars', 200000)">Buy for $200000</button>
+                        <button class="buy-btn btn btn-danger" onclick="buyInvestment('cars', 200000)">Buy for $200000</button>
                     </div>
                 </div>
             </div>
             <div class="content" id="sabotage" style="display:none;">
                 <h2>Here you sabotage</h2>
-                <div class="sabotage">
-                    <div class="sabotage-icon">
-                        <img src="images/char 1.png" alt="Character 1">
+                <div class="sabotage row">
+                    <div class="sabotage-icon col-auto">
+                        <img src="images/char 1.png" alt="Character 1" class="character-img">
                     </div>
-                    <div class="sabotage-info">
+                    <div class="sabotage-info col">
                         <p>Bonus: 1.5x</p>
                         <p>Cash in Hand: $10,000</p>
                         <p>Earnings/Min: $500/min</p>
                     </div>
-                    <div class="sabotage-actions">
-                        <button onclick="confirmAction('lawsuit')">File Lawsuit</button>
-                        <button onclick="confirmAction('spy')">Send Spy</button>
+                    <div class="sabotage-actions col-auto">
+                        <button class="btn btn-danger" onclick="confirmAction('lawsuit')">File Lawsuit</button>
+                        <button class="btn btn-warning" onclick="confirmAction('spy')">Send Spy</button>
                     </div>
                 </div>
-                <div class="sabotage">
-                    <div class="sabotage-icon">
-                        <img src="images/char 2.png" alt="Character 2">
+                <div class="sabotage row">
+                    <div class="sabotage-icon col-auto">
+                        <img src="images/char 2.png" alt="Character 2" class="character-img">
                     </div>
-                    <div class="sabotage-info">
+                    <div class="sabotage-info col">
                         <p>Bonus: 2.0x</p>
                         <p>Cash in Hand: $20,000</p>
                         <p>Earnings/Min: $1,000/min</p>
                     </div>
-                    <div class="sabotage-actions">
-                        <button onclick="confirmAction('lawsuit')">File Lawsuit</button>
-                        <button onclick="confirmAction('spy')">Send Spy</button>
+                    <div class="sabotage-actions col-auto">
+                        <button class="btn btn-danger" onclick="confirmAction('lawsuit')">File Lawsuit</button>
+                        <button class="btn btn-warning" onclick="confirmAction('spy')">Send Spy</button>
                     </div>
                 </div>
-                <div class="sabotage">
-                    <div class="sabotage-icon">
-                        <img src="images/char 3.png" alt="Character 3">
+                <div class="sabotage row">
+                    <div class="sabotage-icon col-auto">
+                        <img src="images/char 3.png" alt="Character 3" class="character-img">
                     </div>
-                    <div class="sabotage-info">
+                    <div class="sabotage-info col">
                         <p>Bonus: 2.5x</p>
                         <p>Cash in Hand: $30,000</p>
                         <p>Earnings/Min: $1,500/min</p>
                     </div>
-                    <div class="sabotage-actions">
-                        <button onclick="confirmAction('lawsuit')">File Lawsuit</button>
-                        <button onclick="confirmAction('spy')">Send Spy</button>
+                    <div class="sabotage-actions col-auto">
+                        <button class="btn btn-danger" onclick="confirmAction('lawsuit')">File Lawsuit</button>
+                        <button class="btn btn-warning" onclick="confirmAction('spy')">Send Spy</button>
                     </div>
                 </div>
             </div>
             <div class="content" id="leaderboard" style="display:none;">
                 <h2>Here you see the leaderboard</h2>
-                <div class="leaderboard">
-                    <div class="leaderboard-rank">1</div>
-                    <div class="leaderboard-icon">
-                        <img src="images/char 1.png" alt="Character 1">
+                <div class="leaderboard row">
+                    <div class="leaderboard-rank col-auto">1</div>
+                    <div class="leaderboard-icon col-auto">
+                        <img src="images/char 1.png" alt="Character 1" class="character-img">
                     </div>
-                    <div class="leaderboard-info">
+                    <div class="leaderboard-info col">
                         <p>Cash in Hand: $10,000</p>
                         <p>Earnings/Min: $500/min</p>
                     </div>
                 </div>
-                <div class="leaderboard">
-                    <div class="leaderboard-rank">2</div>
-                    <div class="leaderboard-icon">
-                        <img src="images/char 2.png" alt="Character 2">
+                <div class="leaderboard row">
+                    <div class="leaderboard-rank col-auto">2</div>
+                    <div class="leaderboard-icon col-auto">
+                        <img src="images/char 2.png" alt="Character 2" class="character-img">
                     </div>
-                    <div class="leaderboard-info">
+                    <div class="leaderboard-info col">
                         <p>Cash in Hand: $20,000</p>
                         <p>Earnings/Min: $1,000/min</p>
                     </div>
                 </div>
-                <div class="leaderboard">
-                    <div class="leaderboard-rank">3</div>
-                    <div class="leaderboard-icon">
-                        <img src="images/char 3.png" alt="Character 3">
+                <div class="leaderboard row">
+                    <div class="leaderboard-rank col-auto">3</div>
+                    <div class="leaderboard-icon col-auto">
+                        <img src="images/char 3.png" alt="Character 3" class="character-img">
                     </div>
-                    <div class="leaderboard-info">
+                    <div class="leaderboard-info col">
                         <p>Cash in Hand: $30,000</p>
                         <p>Earnings/Min: $1,500/min</p>
                     </div>
@@ -147,8 +148,8 @@
     <div id="modal" class="modal">
         <div class="modal-content">
             <p id="modal-text"></p>
-            <button onclick="closeModal()">Cancel</button>
-            <button onclick="confirmModal()">Confirm</button>
+            <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+            <button class="btn btn-primary" onclick="confirmModal()">Confirm</button>
         </div>
     </div>
     

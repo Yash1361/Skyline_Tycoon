@@ -2,36 +2,38 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Press Start 2P', cursive;
     background-color: #000;
+    overflow: hidden;
+    background-image: url('images/city.png'); /* Add the background image */
+    background-size: cover; /* Ensure the background covers the entire area */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent the background from repeating */
 }
 
-.container {
+
+.container-fluid {
     position: relative;
     width: 100%;
     height: 100%;
-    overflow: hidden;
 }
 
 .background {
     position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain; /* Ensure the image fits within the container */
     z-index: 1;
 }
 
 .box {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, 0);
-    width: 80%;
-    background-color: rgba(0, 0, 0, 0.7);
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.8);
     color: #fff;
     padding: 20px;
     border-radius: 10px;
     z-index: 2;
+    margin-top: 10%;
 }
 
 .info-bar {
@@ -52,6 +54,7 @@ body, html {
 
 .info-text p {
     margin: 0;
+    line-height: 1.6;
 }
 
 .navbar {
@@ -60,22 +63,9 @@ body, html {
     margin-bottom: 20px;
 }
 
-.navbar button {
-    background-color: #444;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-}
-
-.navbar button:hover {
-    background-color: #555;
-}
-
 .content h2 {
     margin-top: 0;
+    font-size: 1.5rem;
 }
 
 .content p {
@@ -83,27 +73,42 @@ body, html {
     line-height: 1.6;
 }
 
-.investment {
+.investment,
+.sabotage,
+.leaderboard {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #222;
+    background-color: #333;
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
+    font-size: 1rem;
 }
 
-.investment-icon {
+.investment-icon,
+.sabotage-icon,
+.leaderboard-icon {
     font-size: 2rem;
     color: #fff;
 }
 
-.investment-info {
+.character-img {
+    width: 50px; /* Set the same size as the previous character icons */
+    height: 50px;
+    border-radius: 5px;
+}
+
+.investment-info,
+.sabotage-info,
+.leaderboard-info {
     flex-grow: 1;
     margin-left: 10px;
 }
 
-.investment-info p {
+.investment-info p,
+.sabotage-info p,
+.leaderboard-info p {
     margin: 0;
 }
 
@@ -116,25 +121,9 @@ body, html {
     margin-right: 10px;
 }
 
-.investment-buy {
+.investment-buy,
+.sabotage-actions {
     text-align: center;
-}
-
-.investment-buy button {
-    background-color: #444;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.investment-buy button:hover {
-    background-color: #555;
-}
-
-.investment-buy p {
-    margin: 5px 0 0;
 }
 
 .small-btn {
@@ -144,6 +133,7 @@ body, html {
     padding: 5px 10px;
     cursor: pointer;
     border-radius: 5px;
+    font-size: 0.8rem;
 }
 
 .small-btn:hover {
@@ -151,7 +141,7 @@ body, html {
 }
 
 .locked {
-    background-color: #333;
+    background-color: #444;
     color: #999;
 }
 
@@ -164,7 +154,7 @@ body, html {
 }
 
 .buy-btn {
-    background-color: #444;
+    background-color: #f00;
     color: #fff;
     border: none;
     padding: 5px 10px;
@@ -173,80 +163,7 @@ body, html {
 }
 
 .buy-btn:hover {
-    background-color: #555;
-}
-
-.sabotage {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #222;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
-
-.sabotage-icon img {
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
-}
-
-.sabotage-info {
-    flex-grow: 1;
-    margin-left: 10px;
-}
-
-.sabotage-info p {
-    margin: 0;
-}
-
-.sabotage-actions {
-    text-align: center;
-}
-
-.sabotage-actions button {
-    background-color: #444;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-right: 5px;
-}
-
-.sabotage-actions button:hover {
-    background-color: #555;
-}
-
-.leaderboard {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #222;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
-
-.leaderboard-rank {
-    font-size: 1.5rem;
-    margin-right: 10px;
-}
-
-.leaderboard-icon img {
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
-}
-
-.leaderboard-info {
-    flex-grow: 1;
-    margin-left: 10px;
-}
-
-.leaderboard-info p {
-    margin: 0;
+    background-color: #c00;
 }
 
 .modal {
@@ -278,6 +195,7 @@ body, html {
     cursor: pointer;
     border-radius: 5px;
     margin: 10px;
+    font-size: 1rem;
 }
 
 .modal-content button:hover {
