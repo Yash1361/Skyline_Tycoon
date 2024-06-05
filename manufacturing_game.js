@@ -104,6 +104,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Function to handle sabotage actions
+    function handleSabotage(action, target) {
+        // You'll need to replace the placeholder alert with your 
+        // actual sabotage logic based on the action and target.
+        // For example, you could have functions like:
+        // fileLawsuit(target) and sendSpy(target)
+        alert(`You are attempting to ${action} ${target}. This functionality is under construction.`); 
+    }
+
+    // Event listener for sabotage buttons
+    const sabotageButtons = document.querySelectorAll('.sabotage-btn');
+    sabotageButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const action = button.dataset.action;
+            const target = button.parentElement.parentElement.querySelector('h3').textContent; 
+            handleSabotage(action, target);
+        });
+    });
+
     const modal = document.getElementById('modal');
 
     function openModal(message) {
