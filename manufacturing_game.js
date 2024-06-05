@@ -29,12 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // After unlocking, replace unlock button with buy button and update stats
             const baseCost = investmentType === 'chips' ? 1000 : investmentType === 'cars' ? 10000 : 26.24; // Base cost for chips and cars
             const outputValue = investmentType === 'chips' ? 10000 : investmentType === 'cars' ? 100000 : 100;
+            const initialQuantity = 1; // Start with 1/10 for both chips and cars
             const buyButtonHTML = `
                 <button class="buy-btn" data-cost="${baseCost}">Buy x1</button>
                 <p class="cost">${baseCost.toLocaleString()}</p>
             `;
             const investmentStatsHTML = `
-                <p>Owned: <span id="${investmentType}-quantity">0</span>/10</p>
+                <p>Owned: <span id="${investmentType}-quantity">${initialQuantity}</span>/10</p>
                 <p>Output: <span class="output">${outputValue}</span> / sec</p>
             `;
             investment.querySelector('.investment-actions').innerHTML = buyButtonHTML;
@@ -43,6 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Add event listener to the new buy button
             const newBuyButton = investment.querySelector('.buy-btn');
             newBuyButton.addEventListener('click', () => handleBuy(investment));
+
+            // Update initial earnings for the first unit owned
+            updateEarnings(outputValue);
         } else {
             console.log('Not enough money to unlock!'); // Debugging line
         }
