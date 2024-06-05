@@ -1,5 +1,6 @@
 /* Basic Styles */
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@600;900&display=swap');
 
 * {
     box-sizing: border-box;
@@ -9,21 +10,21 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: 'Rajdhani', sans-serif; 
-    background-color: #0c121f; 
-    color: #f0f0f0; 
+    font-family: 'Exo 2', sans-serif;
+    background-color: #0c121f;
+    color: #f0f0f0;
     overflow: hidden;
-    background-image: url('images/city.png'); 
-    background-size: cover; 
-    background-position: center; 
+    background-image: url('images/city.png');
+    background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
 }
 
 .game-container {
     width: 90%;
-    max-width: 1200px; 
+    max-width: 1200px;
     margin: 20px auto;
-    background-color: rgba(12, 18, 31, 0.85); 
+    background-color: rgba(12, 18, 31, 0.85);
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -44,20 +45,30 @@ body, html {
 }
 
 .player-info img {
-    width: 60px;
-    height: 60px;
+    width: 80px; 
+    height: 80px; 
     border-radius: 50%;
     margin-right: 20px;
-    border: 2px solid #39d1b4;
+    border: 3px solid #00c853; 
+    box-shadow: 0 0 10px rgba(0, 200, 83, 0.8); 
 }
 
+.stats {
+    text-align: right;
+}
+
+
 .stats p {
-    margin: 5px 0; 
-    font-size: 1.1rem;
+    margin: 5px 0;
+    font-size: 1.3rem; 
+    color: #00c853; 
+    font-weight: 600;
+    text-shadow: 0 0 5px rgba(0, 200, 83, 0.6); 
 }
 
 .stats span {
-    color: #39d1b4; 
+    font-weight: 900;
+    color: #ffffff;
 }
 
 .game-nav {
@@ -65,25 +76,46 @@ body, html {
 }
 
 .nav-btn {
-    background-color: transparent;
-    color: #f0f0f0;
+    background: none;
     border: none;
-    padding: 10px 20px;
-    font-size: 1.1rem;
+    padding: 12px 24px;
+    margin: 0 10px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #ffffff;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s; 
-    margin-left: 10px;
     border-radius: 5px;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.3s ease;
+}
+
+.nav-btn::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background-color: #00c853;
+    transition: width 0.3s ease;
 }
 
 .nav-btn:hover {
-    background-color: #39d1b4;
-    color: #0c121f;
+    color: #00c853;
+}
+
+.nav-btn:hover::before {
+    width: 100%;
 }
 
 .nav-btn.active {
-    background-color: #39d1b4;
-    color: #0c121f;
+    color: #00c853;
+}
+
+.nav-btn.active::before {
+    width: 100%;
 }
 
 /* Game Content */
@@ -97,99 +129,29 @@ body, html {
 
 .tab-content.active {
     display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 h2 {
-    color: #39d1b4;
+    color: #00c853;
     text-align: center;
     margin-bottom: 20px;
-    font-size: 2rem;
+    font-size: 2.5rem; 
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(0, 200, 83, 0.8);
 }
 
-.investment-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-    gap: 20px;
-}
-
-.investment {
-    background-color: rgba(34, 41, 56, 0.9);
-    border-radius: 8px;
-    padding: 20px;
-    color: #f0f0f0;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.investment:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-}
-
-.investment-header { 
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.investment-header i {
-    font-size: 2rem;
-    margin-right: 10px;
-    color: #39d1b4; 
-}
-
-.investment-header h3 {
-    margin: 0; 
-    font-size: 1.5rem;
-}
-
-.investment-stats {
-    margin-bottom: 15px;
-}
-
-.investment-stats p {
-    margin: 5px 0; 
-    font-size: 1.1rem;
-}
-
-.investment-actions {
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
-}
-
-.buy-btn, .unlock-btn {
-    background-color: #39d1b4;
-    color: #0c121f;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1.1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-bottom: 10px; 
-}
-
-.buy-btn:hover, .unlock-btn:hover {
-    background-color: #29a38d;
-}
-
-.locked {
-    opacity: 0.6; 
-    pointer-events: none; 
-}
-
-.locked .buy-btn {
-    background-color: #6c757d; 
-    cursor: default;
-}
-
-/* Ensure unlock-btn remains clickable */
-.locked .unlock-btn {
-    pointer-events: auto;
-    background-color: #39d1b4;
-    cursor: pointer;
-}
-
+.investment-grid,
 .target-list,
 .leaderboard-list {
     display: grid;
@@ -197,6 +159,7 @@ h2 {
     gap: 20px;
 }
 
+.investment,
 .target,
 .leader {
     background-color: rgba(34, 41, 56, 0.9);
@@ -204,60 +167,136 @@ h2 {
     padding: 20px;
     color: #f0f0f0;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.investment:hover,
 .target:hover,
 .leader:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
 }
 
+.investment-header,
 .target-header {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
 }
 
-.leader {
-    display: flex;
-    align-items: center; 
+.investment-header i,
+.target-header img {
+    margin-right: 15px;
 }
 
+.leader {
+    display: flex;
+    align-items: center;
+}
+
+.investment-header i {
+    font-size: 2rem;
+    color: #00c853;
+}
 
 .target-header img,
 .leader img {
-    width: 50px;
-    height: 50px;
+    width: 60px; 
+    height: 60px; 
     border-radius: 50%;
-    margin-right: 15px;
-    border: 2px solid #39d1b4;
+    border: 2px solid #00c853;
+}
+
+.investment-header h3,
+.target-header h3 {
+    margin: 0;
+    font-size: 1.8rem; 
+    color: #ffffff;
+}
+
+.investment-stats p,
+.target p,
+.leader-info p {
+    margin: 5px 0;
+    font-size: 1.2rem; 
+}
+
+.investment-stats span,
+.target p,
+.leader-info p {
+    color: #00c853;
+}
+
+.investment-actions,
+.target-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
 }
 
 .target-actions {
-    margin-top: 15px;
-    display: flex;
+    flex-direction: row;
     justify-content: space-around;
 }
 
+.buy-btn,
+.unlock-btn,
 .sabotage-btn {
-    background-color: #d9534f; 
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    font-size: 1rem;
-    border-radius: 5px;
+    background: none;
+    border: 2px solid #00c853;
+    padding: 10px 20px;
+    margin: 10px 0;
+    font-size: 1.2rem; 
+    font-weight: 600;
+    color: #00c853;
     cursor: pointer;
-    transition: background-color 0.3s;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease; 
+    box-shadow: 0 4px 8px rgba(0, 200, 83, 0.5);
+}
+
+.buy-btn:hover,
+.unlock-btn:hover {
+    background-color: #00c853;
+    color: #ffffff;
+    box-shadow: 0 8px 16px rgba(0, 200, 83, 0.8);
+}
+
+.sabotage-btn {
+    border-color: #ff0000;
+    color: #ff0000;
+    box-shadow: 0 4px 8px rgba(255, 0, 0, 0.5);
 }
 
 .sabotage-btn:hover {
-    background-color: #c9302c;
+    background-color: #ff0000;
+    color: #ffffff;
+    box-shadow: 0 8px 16px rgba(255, 0, 0, 0.8);
+}
+
+.locked {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.locked .buy-btn {
+    background-color: #6c757d;
+    cursor: default;
+    border-color: #6c757d;
+    color: #ffffff;
+}
+
+/* Ensure unlock-btn remains clickable */
+.locked .unlock-btn {
+    pointer-events: auto;
 }
 
 .leader-rank {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-right: 20px;
-    color: #ffc107; 
+    color: #ffc107;
+    text-shadow: 0 0 5px rgba(255, 193, 7, 0.8); 
 }
 
 .leader-info {
@@ -265,7 +304,15 @@ h2 {
 }
 
 .leader-info h3 {
-    margin: 0 0 5px 0; 
+    margin: 0 0 5px 0;
+    color: #ffffff;
+    font-size: 1.6rem;
+}
+
+.cost {
+    color: #00c853;
+    margin-top: 5px;
+    font-size: 1rem; 
 }
 
 /* Modal Styles */
@@ -277,7 +324,7 @@ h2 {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     align-items: center;
     justify-content: center;
 }
@@ -303,4 +350,24 @@ h2 {
 
 .modal-content button:hover {
     background-color: #555;
+}
+
+/* Glowing Border Animation on Some Elements */
+.player-info img,
+.investment:hover,
+.target:hover,
+.leader:hover,
+.buy-btn:hover, 
+.unlock-btn:hover,
+.sabotage-btn:hover {
+    animation: glow 2s infinite alternate; 
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 10px rgba(0, 200, 83, 0.5), 0 0 20px rgba(0, 200, 83, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(0, 200, 83, 0.8), 0 0 25px rgba(0, 200, 83, 0.5); 
+  }
 }

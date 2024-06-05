@@ -4,6 +4,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const moneyDisplay = document.getElementById('current-money');
     const earningsDisplay = document.getElementById('earnings-per-min');
 
+    const investmentsData = {
+        solar: {
+            name: "Solar Farms",
+            icon: "fas fa-solar-panel",
+            description: "Generate clean energy and profits.",
+            baseCost: 26.24,
+            output: 100,
+            maxQuantity: 10
+        },
+        chips: {
+            name: "Chip Fabrication",
+            icon: "fas fa-microchip",
+            description: "Control the future of technology.",
+            unlockCost: 20000,
+            baseCost: 1000,
+            output: 10000,
+            maxQuantity: 10
+        },
+        cars: {
+            name: "EV Manufacturing",
+            icon: "fas fa-car",
+            description: "Dominate the electric vehicle market.",
+            unlockCost: 200000,
+            baseCost: 10000,
+            output: 100000,
+            maxQuantity: 10
+        }
+    };
+
     function updateMoney(amount) {
         currentMoney += amount;
         moneyDisplay.textContent = `Money: $${currentMoney.toLocaleString()}`;
@@ -14,85 +43,120 @@ document.addEventListener('DOMContentLoaded', () => {
         earningsDisplay.textContent = `Earnings/Min: $${earningsPerMin.toLocaleString()}`;
     }
 
-    // Function to unlock an investment
+    function createInvestmentElement(investmentKey, investmentData) {
+        const investmentDiv = document.createElement('div');
+        investmentDiv.classList.add('investment', investmentKey === 'solar' ? 'active' : 'locked');
+        investmentDiv.dataset.investment = investmentKey;
+        
+        const isUnlocked = investmentKey === 'solar';
+        
+        investmentDiv.innerHTML = `
+            <div class="investment-header">
+                <i class="${investmentData.icon}"></i> 
+                <h3>${investmentData.name}</h3>
+            </div>
+            <p>${investmentData.description}</p>
+            <div class="investment-stats">
+                ${isUnlocked ? 
+                    `<p>Owned: <span id="${investmentKey}-quantity">0</span>/10</p>
+                    <p>Output: <span class="output">${investmentData.output}</span> / sec</p>` 
+                    : 
+                    `<p>Unlock Cost: <span class="cost">$${investmentData.unlockCost.toLocaleString()}</span></p>`
+                }
+            </div>
+            <div class="investment-actions">
+                ${isUnlocked ? 
+                    `<button class="buy-btn" data-cost="${investmentData.baseCost}">Buy x1</button>
+                    <p class="cost">$${investmentData.baseCost.toLocaleString()}</p>`
+                    :
+                    `<button class="buy-btn unlock-btn" data-cost="${investmentData.unlockCost}">Unlock</button>`
+                }
+            </div>
+        `;
+
+        // Add event listeners after the HTML is set
+        const buyButton = investmentDiv.querySelector('.buy-btn');
+        buyButton.addEventListener('click', () => handleInvestmentAction(investmentDiv));
+
+        return investmentDiv;
+    }
+
     function unlockInvestment(investment) {
         const investmentType = investment.dataset.investment;
+        const investmentData = investmentsData[investmentType];
         const unlockButton = investment.querySelector('.unlock-btn');
-        const cost = parseInt(unlockButton.dataset.cost.replace(/,/g, ''), 10); // Ensure cost is parsed correctly
-
-        console.log(`Trying to unlock ${investmentType} with cost ${cost} and current money ${currentMoney}`); // Debugging line
+        const cost = parseInt(unlockButton.dataset.cost.replace(/,/g, ''), 10);
 
         if (currentMoney >= cost) {
             updateMoney(-cost);
             investment.classList.remove('locked');
 
             // After unlocking, replace unlock button with buy button and update stats
-            const baseCost = investmentType === 'chips' ? 1000 : investmentType === 'cars' ? 10000 : 26.24; // Base cost for chips and cars
-            const outputValue = investmentType === 'chips' ? 10000 : investmentType === 'cars' ? 100000 : 100;
-            const initialQuantity = 1; // Start with 1/10 for both chips and cars
             const buyButtonHTML = `
-                <button class="buy-btn" data-cost="${baseCost}">Buy x1</button>
-                <p class="cost">${baseCost.toLocaleString()}</p>
+                <button class="buy-btn" data-cost="${investmentData.baseCost}">Buy x1</button>
+                <p class="cost">$${investmentData.baseCost.toLocaleString()}</p>
             `;
             const investmentStatsHTML = `
-                <p>Owned: <span id="${investmentType}-quantity">${initialQuantity}</span>/10</p>
-                <p>Output: <span class="output">${outputValue}</span> / sec</p>
+                <p>Owned: <span id="${investmentType}-quantity">0</span>/${investmentData.maxQuantity}</p>
+                <p>Output: <span class="output">${investmentData.output}</span> / sec</p>
             `;
             investment.querySelector('.investment-actions').innerHTML = buyButtonHTML;
             investment.querySelector('.investment-stats').innerHTML = investmentStatsHTML;
 
             // Add event listener to the new buy button
             const newBuyButton = investment.querySelector('.buy-btn');
-            newBuyButton.addEventListener('click', () => handleBuy(investment));
-
-            // Update initial earnings for the first unit owned
-            updateEarnings(outputValue);
+            newBuyButton.addEventListener('click', () => handleInvestmentAction(investment));
         } else {
-            console.log('Not enough money to unlock!'); // Debugging line
+            alert("Not enough money to unlock!");
         }
     }
 
-    // Function to handle buying investments
-    function handleBuy(investment) {
+    function buyInvestment(investment) {
         const investmentType = investment.dataset.investment;
+        const investmentData = investmentsData[investmentType];
         const buyButton = investment.querySelector('.buy-btn');
         const costDisplay = investment.querySelector('.cost');
-        const quantityDisplay = investment.querySelector('#' + investmentType + '-quantity');
+        const quantityDisplay = investment.querySelector(`#${investmentType}-quantity`);
         let ownedQuantity = parseInt(quantityDisplay.textContent);
 
-        const cost = parseInt(buyButton.dataset.cost.replace(/,/g, ''), 10); // Ensure cost is parsed correctly
-        console.log(`Trying to buy ${investmentType} with cost ${cost} and current money ${currentMoney}`); // Debugging line
+        const cost = parseInt(buyButton.dataset.cost.replace(/,/g, ''), 10); 
 
-        if (currentMoney >= cost && ownedQuantity < 10) {
+        if (currentMoney >= cost && ownedQuantity < investmentData.maxQuantity) {
             updateMoney(-cost);
             ownedQuantity++;
             quantityDisplay.textContent = ownedQuantity;
 
-            // Update the buy button's cost for the next purchase (e.g., increase by 1.5x)
-            const newCost = Math.round(cost * 1.5);
+            // Update the buy button's cost for the next purchase 
+            const newCost = Math.round(cost * 1.15); 
             buyButton.dataset.cost = newCost;
             costDisplay.textContent = newCost.toLocaleString();
 
-            // Update earnings based on the investment type
-            if (investmentType === 'solar') {
-                updateEarnings(100);
-            } else if (investmentType === 'chips') {
-                updateEarnings(10000);
-            } else if (investmentType === 'cars') {
-                updateEarnings(100000);
-            }
-        } else if (ownedQuantity >= 10) {
-            console.log("You've reached the maximum ownership limit for this investment!"); // Debugging line
+            updateEarnings(investmentData.output);
+        } else if (ownedQuantity >= investmentData.maxQuantity) {
+            alert("You've reached the maximum ownership limit for this investment!");
         } else {
-            console.log('Not enough money to buy!'); // Debugging line
+            alert("Not enough money to buy!");
         }
+    }
+
+    function handleInvestmentAction(investment) {
+        if (investment.classList.contains('locked')) {
+            unlockInvestment(investment);
+        } else {
+            buyInvestment(investment);
+        }
+    }
+
+
+    const investmentGrid = document.querySelector('.investment-grid');
+    for (const investmentKey in investmentsData) {
+        const investmentElement = createInvestmentElement(investmentKey, investmentsData[investmentKey]);
+        investmentGrid.appendChild(investmentElement);
     }
 
     const navButtons = document.querySelectorAll('.nav-btn');
     const tabContents = document.querySelectorAll('.tab-content');
-    const investments = document.querySelectorAll('.investment');
 
-    // Event listener for navigation buttons
     navButtons.forEach(button => {
         button.addEventListener('click', () => {
             const targetTabId = button.dataset.target;
@@ -105,34 +169,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Event listener for investment buttons (both buy and unlock)
-    investments.forEach(investment => {
-        const unlockButton = investment.querySelector('.unlock-btn');
-        const buyButton = investment.querySelector('.buy-btn');
 
-        if (unlockButton) {
-            console.log(`Adding unlock event listener to ${investment.dataset.investment}`); // Debugging line
-            unlockButton.addEventListener('click', () => {
-                console.log(`Unlock button clicked for ${investment.dataset.investment}`); // Debugging line
-                unlockInvestment(investment);
-            });
-        }
-
-        if (buyButton) {
-            buyButton.addEventListener('click', () => handleBuy(investment));
-        }
-    });
-
-    // Function to handle sabotage actions
+    // Function to handle sabotage actions - To be implemented
     function handleSabotage(action, target) {
-        // You'll need to replace the placeholder alert with your 
-        // actual sabotage logic based on the action and target.
-        // For example, you could have functions like:
-        // fileLawsuit(target) and sendSpy(target)
         console.log(`You are attempting to ${action} ${target}. This functionality is under construction.`); 
     }
 
-    // Event listener for sabotage buttons
+    // Event listener for sabotage buttons - To be implemented
     const sabotageButtons = document.querySelectorAll('.sabotage-btn');
     sabotageButtons.forEach(button => {
         button.addEventListener('click', () => {

@@ -6,7 +6,6 @@
     <title>Manufacturing Empire</title>
     <link rel="stylesheet" href="manufacturing_game.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
 </head>
 <body>
     <div class="game-container">
@@ -27,54 +26,15 @@
         </div>
 
         <div class="game-content">
+
             <div class="tab-content active" id="invest">
                 <h2>Invest Your Capital</h2>
                 <div class="investment-grid">
-                    <div class="investment" data-investment="solar">
-                        <div class="investment-header">
-                            <i class="fas fa-solar-panel"></i> 
-                            <h3>Solar Farms</h3>
-                        </div>
-                        <p>Generate clean energy and profits.</p>
-                        <div class="investment-stats">
-                            <p>Owned: <span id="solar-quantity">0</span>/10</p>
-                            <p>Output: <span class="output">100</span> / sec</p>
-                        </div>
-                        <div class="investment-actions">
-                            <button class="buy-btn" data-cost="26.24">Buy x1</button>
-                            <p class="cost">26.24 quadrillion</p>
-                        </div>
                     </div>
-                    <div class="investment locked" data-investment="chips">
-                        <div class="investment-header">
-                            <i class="fas fa-microchip"></i>
-                            <h3>Chip Fabrication</h3> 
-                        </div>
-                        <p>Control the future of technology.</p>
-                        <div class="investment-stats">
-                            <p>Unlock Cost: <span class="cost">$20,000</span></p>
-                        </div>
-                        <div class="investment-actions">
-                            <button class="buy-btn unlock-btn" data-cost="20000">Unlock</button>
-                        </div>
-                    </div>
-                    <div class="investment locked" data-investment="cars">
-                        <div class="investment-header">
-                            <i class="fas fa-car"></i>
-                            <h3>EV Manufacturing</h3>
-                        </div>
-                        <p>Dominate the electric vehicle market.</p>
-                        <div class="investment-stats">
-                            <p>Unlock Cost: <span class="cost">$200,000</span></p>
-                        </div>
-                        <div class="investment-actions">
-                            <button class="buy-btn unlock-btn" data-cost="200000">Unlock</button>
-                        </div>
-                    </div>
-                </div>
             </div>
+
             <div class="tab-content" id="sabotage"> 
-                <h2>Corporate Espionage</h2>
+                <h2>Corporate Espionage</h2> 
                 <div class="target-list">
                     <div class="target">
                         <div class="target-header">
@@ -115,8 +75,9 @@
                             <button class="sabotage-btn" data-action="spy">Send Spy</button>
                         </div>
                     </div>
-                    </div>
+                </div>
             </div>
+
             <div class="tab-content" id="leaderboard"> 
                 <h2>Industry Titans</h2>
                 <div class="leaderboard-list">
@@ -149,6 +110,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <div id="modal" class="modal">
