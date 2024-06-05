@@ -1,4 +1,4 @@
-let currentMoney = 300000; // Initialize current money
+let currentMoney = 20000; // Initialize current money
 
 function showTab(tabName) {
     const contents = document.querySelectorAll('.content');
