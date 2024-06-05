@@ -1,10 +1,17 @@
 /* Basic Styles */
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
 body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: 'Press Start 2P', cursive;
-    background-color: #000;
+    font-family: 'Rajdhani', sans-serif; 
+    background-color: #0c121f; 
+    color: #f0f0f0; 
     overflow: hidden;
     background-image: url('images/city.png'); 
     background-size: cover; 
@@ -12,183 +19,247 @@ body, html {
     background-repeat: no-repeat;
 }
 
-.container-fluid {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-/* Game Container */
 .game-container {
-    position: relative;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    padding: 20px;
+    width: 90%;
+    max-width: 1200px; 
+    margin: 20px auto;
+    background-color: rgba(12, 18, 31, 0.85); 
     border-radius: 10px;
-    z-index: 2;
-    margin-top: 5%;
-    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2); /* Add a subtle glow */
-    max-width: 800px;  /* Limit container width for larger screens */
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Info Bar */
-.info-bar {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.character-icon img {
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
-    border: 2px solid #fff; /* Add a white border to the icon */
-}
-
-.info-text {
-    margin-left: 10px;
-}
-
-.info-text p {
-    margin: 0;
-    line-height: 1.6;
-}
-
-/* Navigation Bar */
-.navbar {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-}
-
-.navbar button {
-    font-size: 1rem;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease; /* Smooth transition for button hover effect */
-}
-
-/* Content Area */
-.content {
-    background-color: rgba(51, 51, 51, 0.9); /* Semi-transparent background */
     padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.content h2 {
-    margin-top: 0;
-    font-size: 1.5rem;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-/* Investment, Sabotage, Leaderboard Styles */
-.investment,
-.sabotage,
-.leaderboard {
+/* HUD */
+.hud {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    background-color: #222; /* Darker background for better contrast */
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 8px; 
-    border: 1px solid #444; /* Subtle border */
-    font-size: 1rem;
-    transition: transform 0.2s ease; /* Add a smooth hover transition */
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #222938;
 }
 
-.investment:hover,
-.sabotage:hover,
-.leaderboard:hover {
-    transform: scale(1.02); /* Slightly scale up on hover */
-    box-shadow: 0px 2px 5px rgba(255, 255, 255, 0.1); /* Add a shadow on hover */
-}
-
-.investment-icon,
-.sabotage-icon,
-.leaderboard-icon {
-    font-size: 2rem;
-    color: #fff;
-    margin-right: 15px; /* Add spacing between icon and text */
-}
-
-.character-img {
-    width: 50px; 
-    height: 50px;
-    border-radius: 5px;
-}
-
-.investment-info,
-.sabotage-info,
-.leaderboard-info {
-    flex-grow: 1;
-}
-
-.investment-info p,
-.sabotage-info p,
-.leaderboard-info p {
-    margin: 0; 
-    line-height: 1.4; /* Adjust line height for better readability */
-}
-
-
-/* Other Styles */
-.earnings {
+.player-info {
     display: flex;
     align-items: center;
 }
 
-.earnings p {
-    margin-right: 10px;
+.player-info img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 20px;
+    border: 2px solid #39d1b4;
 }
 
-.investment-buy,
-.sabotage-actions {
-    text-align: center;
+.stats p {
+    margin: 5px 0; 
+    font-size: 1.1rem;
 }
 
-.small-btn {
-    background-color: #444;
-    color: #fff;
+.stats span {
+    color: #39d1b4; 
+}
+
+.game-nav {
+    display: flex;
+}
+
+.nav-btn {
+    background-color: transparent;
+    color: #f0f0f0;
     border: none;
-    padding: 5px 10px;
+    padding: 10px 20px;
+    font-size: 1.1rem;
     cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; 
+    margin-left: 10px;
     border-radius: 5px;
-    font-size: 0.8rem;
 }
 
-.small-btn:hover {
-    background-color: #555;
+.nav-btn:hover {
+    background-color: #39d1b4;
+    color: #0c121f;
+}
+
+.nav-btn.active {
+    background-color: #39d1b4;
+    color: #0c121f;
+}
+
+/* Game Content */
+.game-content {
+    padding-top: 20px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+h2 {
+    color: #39d1b4;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.investment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 20px;
+}
+
+.investment {
+    background-color: rgba(34, 41, 56, 0.9);
+    border-radius: 8px;
+    padding: 20px;
+    color: #f0f0f0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.investment:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+.investment-header { 
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.investment-header i {
+    font-size: 2rem;
+    margin-right: 10px;
+    color: #39d1b4; 
+}
+
+.investment-header h3 {
+    margin: 0; 
+    font-size: 1.5rem;
+}
+
+.investment-stats {
+    margin-bottom: 15px;
+}
+
+.investment-stats p {
+    margin: 5px 0; 
+    font-size: 1.1rem;
+}
+
+.investment-actions {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+}
+
+.buy-btn, .unlock-btn {
+    background-color: #39d1b4;
+    color: #0c121f;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 10px; 
+}
+
+.buy-btn:hover, .unlock-btn:hover {
+    background-color: #29a38d;
 }
 
 .locked {
-    background-color: #444;
-    color: #999;
+    opacity: 0.6; 
+    pointer-events: none; 
 }
 
-.locked .investment-icon {
-    color: #666;
+.locked .buy-btn {
+    background-color: #6c757d; 
+    cursor: default;
 }
 
-.locked .investment-info p {
-    color: #999;
+
+.target-list,
+.leaderboard-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
 }
 
-.buy-btn {
-    background-color: #f00;
+.target,
+.leader {
+    background-color: rgba(34, 41, 56, 0.9);
+    border-radius: 8px;
+    padding: 20px;
+    color: #f0f0f0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.target:hover,
+.leader:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+.target-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.leader {
+    display: flex;
+    align-items: center; 
+}
+
+
+.target-header img,
+.leader img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 2px solid #39d1b4;
+}
+
+.target-actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.sabotage-btn {
+    background-color: #d9534f; 
     color: #fff;
     border: none;
-    padding: 5px 10px;
-    cursor: pointer;
+    padding: 8px 16px;
+    font-size: 1rem;
     border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.buy-btn:hover {
-    background-color: #c00;
+.sabotage-btn:hover {
+    background-color: #c9302c;
+}
+
+.leader-rank {
+    font-size: 2rem;
+    margin-right: 20px;
+    color: #ffc107; 
+}
+
+.leader-info {
+    margin-left: 15px;
+}
+
+.leader-info h3 {
+    margin: 0 0 5px 0; 
 }
 
 /* Modal Styles */

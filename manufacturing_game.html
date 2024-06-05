@@ -3,148 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manufacturing Game</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>Manufacturing Empire</title>
     <link rel="stylesheet" href="manufacturing_game.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="game-container">
-            <div class="row info-bar">
-                <div class="col-auto character-icon">
-                    <img src="images/login-page Background Removed.png" alt="Character Icon">
-                </div>
-                <div class="col info-text">
-                    <p id="bonus">Bonus: 0x</p>
-                    <p id="current-money">Current Money: $300000</p>
-                    <p id="earnings-per-min">Earnings/Min: $0/min</p>
+    <div class="game-container">
+        <div class="hud">
+            <div class="player-info">
+                <img src="images/login-page Background Removed.png" alt="Avatar" id="player-avatar">
+                <div class="stats">
+                    <p><span id="bonus">Bonus: 0x</span></p>
+                    <p><span id="current-money">Money: $200,000</span></p>
+                    <p><span id="earnings-per-min">Earnings/Min: $0</span></p>
                 </div>
             </div>
-            <div class="row navbar">
-                <button class="btn btn-primary col" onclick="showTab('invest')">Invest</button>
-                <button class="btn btn-secondary col" onclick="showTab('sabotage')">Sabotage</button>
-                <button class="btn btn-success col" onclick="showTab('leaderboard')">Leaderboard</button>
-            </div>
-            <div class="content" id="invest">
-                <h2>Here you invest</h2>
-                <div class="investment row" id="investment-solar">
-                    <div class="investment-icon col-auto">
-                        <i class="fas fa-solar-panel"></i>
-                    </div>
-                    <div class="investment-info col">
-                        <p>Solar Panels: <span id="solar-quantity">0</span>/10</p>
-                        <div class="earnings">
-                            <p>100 / sec</p>
-                            <button class="small-btn btn btn-warning">0s</button>
+            <nav class="game-nav">
+                <button class="nav-btn active" data-target="invest">Invest</button>
+                <button class="nav-btn" data-target="sabotage">Sabotage</button>
+                <button class="nav-btn" data-target="leaderboard">Leaderboard</button>
+            </nav>
+        </div>
+
+        <div class="game-content">
+            <div class="tab-content active" id="invest">
+                <h2>Invest Your Capital</h2>
+                <div class="investment-grid">
+                    <div class="investment" data-investment="solar">
+                        <div class="investment-header">
+                            <i class="fas fa-solar-panel"></i> 
+                            <h3>Solar Farms</h3>
+                        </div>
+                        <p>Generate clean energy and profits.</p>
+                        <div class="investment-stats">
+                            <p>Owned: <span id="solar-quantity">0</span>/10</p>
+                            <p>Output: <span class="output">100</span> / sec</p>
+                        </div>
+                        <div class="investment-actions">
+                            <button class="buy-btn" data-cost="26.24">Buy x1</button>
+                            <p class="cost">26.24 quadrillion</p>
                         </div>
                     </div>
-                    <div class="investment-buy col-auto">
-                        <button class="btn btn-info" onclick="buyInvestment('solar', 26.24)">Buy x1</button>
-                        <p>26.24 quadrillion</p>
+                    <div class="investment locked" data-investment="chips">
+                        <div class="investment-header">
+                            <i class="fas fa-microchip"></i>
+                            <h3>Chip Fabrication</h3> 
+                        </div>
+                        <p>Control the future of technology.</p>
+                        <div class="investment-stats">
+                            <p>Unlock Cost: <span class="cost">$20,000</span></p>
+                        </div>
+                        <div class="investment-actions">
+                            <button class="buy-btn unlock-btn" data-cost="20000">Unlock</button>
+                        </div>
                     </div>
-                </div>
-                <div class="investment row locked" id="investment-chips">
-                    <div class="investment-icon col-auto">
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <div class="investment-info col">
-                        <p>Invest in Chips</p>
-                        <button class="buy-btn btn btn-danger" onclick="buyInvestment('chips', 20000)">Buy for $20000</button>
-                    </div>
-                </div>
-                <div class="investment row locked" id="investment-cars">
-                    <div class="investment-icon col-auto">
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <div class="investment-info col">
-                        <p>Invest in Electric Cars</p>
-                        <button class="buy-btn btn btn-danger" onclick="buyInvestment('cars', 200000)">Buy for $200000</button>
+                    <div class="investment locked" data-investment="cars">
+                        <div class="investment-header">
+                            <i class="fas fa-car"></i>
+                            <h3>EV Manufacturing</h3>
+                        </div>
+                        <p>Dominate the electric vehicle market.</p>
+                        <div class="investment-stats">
+                            <p>Unlock Cost: <span class="cost">$200,000</span></p>
+                        </div>
+                        <div class="investment-actions">
+                            <button class="buy-btn unlock-btn" data-cost="200000">Unlock</button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="content" id="sabotage" style="display:none;">
-                <h2>Here you sabotage</h2>
-                <div class="sabotage row">
-                    <div class="sabotage-icon col-auto">
-                        <img src="images/char 1.png" alt="Character 1" class="character-img">
-                    </div>
-                    <div class="sabotage-info col">
+            <div class="tab-content" id="sabotage"> 
+                <h2>Corporate Espionage</h2>
+                <div class="target-list">
+                    <div class="target">
+                        <div class="target-header">
+                            <img src="images/char 1.png" alt="Target 1">
+                            <h3>Competitor A</h3>
+                        </div>
                         <p>Bonus: 1.5x</p>
                         <p>Cash in Hand: $10,000</p>
-                        <p>Earnings/Min: $500/min</p>
+                        <p>Earnings/Min: $500</p>
+                        <div class="target-actions">
+                            <button class="sabotage-btn" data-action="lawsuit">File Lawsuit</button>
+                            <button class="sabotage-btn" data-action="spy">Send Spy</button>
+                        </div>
                     </div>
-                    <div class="sabotage-actions col-auto">
-                        <button class="btn btn-danger" onclick="confirmAction('lawsuit')">File Lawsuit</button>
-                        <button class="btn btn-warning" onclick="confirmAction('spy')">Send Spy</button>
-                    </div>
-                </div>
-                <div class="sabotage row">
-                    <div class="sabotage-icon col-auto">
-                        <img src="images/char 2.png" alt="Character 2" class="character-img">
-                    </div>
-                    <div class="sabotage-info col">
+                    <div class="target">
+                        <div class="target-header">
+                            <img src="images/char 2.png" alt="Target 2">
+                            <h3>Competitor B</h3>
+                        </div>
                         <p>Bonus: 2.0x</p>
-                        <p>Cash in Hand: $20,000</p>
-                        <p>Earnings/Min: $1,000/min</p>
+                        <p>Cash in Hand: $25,000</p>
+                        <p>Earnings/Min: $1,200</p>
+                        <div class="target-actions">
+                            <button class="sabotage-btn" data-action="lawsuit">File Lawsuit</button>
+                            <button class="sabotage-btn" data-action="spy">Send Spy</button>
+                        </div>
                     </div>
-                    <div class="sabotage-actions col-auto">
-                        <button class="btn btn-danger" onclick="confirmAction('lawsuit')">File Lawsuit</button>
-                        <button class="btn btn-warning" onclick="confirmAction('spy')">Send Spy</button>
-                    </div>
-                </div>
-                <div class="sabotage row">
-                    <div class="sabotage-icon col-auto">
-                        <img src="images/char 3.png" alt="Character 3" class="character-img">
-                    </div>
-                    <div class="sabotage-info col">
+                    <div class="target">
+                        <div class="target-header">
+                            <img src="images/char 3.png" alt="Target 3">
+                            <h3>Competitor C</h3>
+                        </div>
                         <p>Bonus: 2.5x</p>
-                        <p>Cash in Hand: $30,000</p>
-                        <p>Earnings/Min: $1,500/min</p>
+                        <p>Cash in Hand: $50,000</p>
+                        <p>Earnings/Min: $2,000</p>
+                        <div class="target-actions">
+                            <button class="sabotage-btn" data-action="lawsuit">File Lawsuit</button>
+                            <button class="sabotage-btn" data-action="spy">Send Spy</button>
+                        </div>
                     </div>
-                    <div class="sabotage-actions col-auto">
-                        <button class="btn btn-danger" onclick="confirmAction('lawsuit')">File Lawsuit</button>
-                        <button class="btn btn-warning" onclick="confirmAction('spy')">Send Spy</button>
                     </div>
-                </div>
             </div>
-            <div class="content" id="leaderboard" style="display:none;">
-                <h2>Here you see the leaderboard</h2>
-                <div class="leaderboard row">
-                    <div class="leaderboard-rank col-auto">1</div>
-                    <div class="leaderboard-icon col-auto">
-                        <img src="images/char 1.png" alt="Character 1" class="character-img">
+            <div class="tab-content" id="leaderboard"> 
+                <h2>Industry Titans</h2>
+                <div class="leaderboard-list">
+                    <div class="leader">
+                        <span class="leader-rank">1.</span>
+                        <img src="images/char 1.png" alt="Leader 1">
+                        <div class="leader-info">
+                            <h3>Mogul X</h3>
+                            <p>Cash: $10,000,000</p>
+                            <p>Earnings/Min: $50,000</p>
+                        </div>
                     </div>
-                    <div class="leaderboard-info col">
-                        <p>Cash in Hand: $10,000</p>
-                        <p>Earnings/Min: $500/min</p>
+                    <div class="leader">
+                        <span class="leader-rank">2.</span>
+                        <img src="images/char 2.png" alt="Leader 2">
+                        <div class="leader-info">
+                            <h3>Tycoon Y</h3>
+                            <p>Cash: $5,000,000</p>
+                            <p>Earnings/Min: $30,000</p>
+                        </div>
                     </div>
-                </div>
-                <div class="leaderboard row">
-                    <div class="leaderboard-rank col-auto">2</div>
-                    <div class="leaderboard-icon col-auto">
-                        <img src="images/char 2.png" alt="Character 2" class="character-img">
-                    </div>
-                    <div class="leaderboard-info col">
-                        <p>Cash in Hand: $20,000</p>
-                        <p>Earnings/Min: $1,000/min</p>
-                    </div>
-                </div>
-                <div class="leaderboard row">
-                    <div class="leaderboard-rank col-auto">3</div>
-                    <div class="leaderboard-icon col-auto">
-                        <img src="images/char 3.png" alt="Character 3" class="character-img">
-                    </div>
-                    <div class="leaderboard-info col">
-                        <p>Cash in Hand: $30,000</p>
-                        <p>Earnings/Min: $1,500/min</p>
+                    <div class="leader">
+                        <span class="leader-rank">3.</span>
+                        <img src="images/char 3.png" alt="Leader 3">
+                        <div class="leader-info">
+                            <h3>Magnate Z</h3>
+                            <p>Cash: $2,500,000</p>
+                            <p>Earnings/Min: $15,000</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
     <div id="modal" class="modal">
         <div class="modal-content">
             <p id="modal-text"></p>
@@ -152,7 +158,7 @@
             <button class="btn btn-primary" onclick="confirmModal()">Confirm</button>
         </div>
     </div>
-    
+
     <script src="manufacturing_game.js"></script>
 </body>
 </html>

@@ -1,118 +1,125 @@
-let currentMoney = 20000; // Initialize current money
+document.addEventListener('DOMContentLoaded', () => {
+    let currentMoney = 200000;
+    let earningsPerMin = 0;
+    const moneyDisplay = document.getElementById('current-money');
+    const earningsDisplay = document.getElementById('earnings-per-min');
 
-// Function to show the selected tab
-function showTab(tabName) {
-    const contents = document.querySelectorAll('.content');
-    contents.forEach(content => {
-        content.style.display = 'none';
-    });
-    
-    const activeTab = document.getElementById(tabName);
-    activeTab.style.display = 'block';
-}
+    function updateMoney(amount) {
+        currentMoney += amount;
+        moneyDisplay.textContent = `Money: $${currentMoney.toLocaleString()}`;
+    }
 
-// Function to update the displayed money
-function updateMoneyDisplay() {
-    document.getElementById('current-money').innerText = `Current Money: $${currentMoney.toFixed(2)}`;
-}
+    function updateEarnings(amount) {
+        earningsPerMin += amount;
+        earningsDisplay.textContent = `Earnings/Min: $${earningsPerMin.toLocaleString()}`;
+    }
 
-// Function to handle buying investments
-function buyInvestment(type, cost) {
-    if (currentMoney >= cost) {
-        currentMoney -= cost;
-        updateMoneyDisplay();
+    // Function to unlock an investment
+    function unlockInvestment(investment) {
+        const investmentType = investment.dataset.investment;
+        const unlockButton = investment.querySelector('.unlock-btn');
+        const cost = parseInt(unlockButton.dataset.cost);
 
-        if (type === 'chips') {
-            // Logic for buying chips
-            const chipsDiv = document.getElementById('investment-chips');
-            chipsDiv.classList.remove('locked');
-            chipsDiv.innerHTML = `
-                <div class="investment-icon">
-                    <i class="fas fa-microchip"></i>
-                </div>
-                <div class="investment-info">
-                    <p>Chips: <span id="chips-quantity">0</span>/10</p>
-                    <div class="earnings">
-                        <p>10,000 / sec</p>
-                        <button class="small-btn">0s</button>
-                    </div>
-                </div>
-                <div class="investment-buy">
-                    <button onclick="buyInvestment('more-chips', 17.606)">Buy x1</button>
-                    <p>17.606 quadrillion</p>
-                </div>
+        if (currentMoney >= cost) {
+            updateMoney(-cost);
+            investment.classList.remove('locked');
+
+            // After unlocking, replace unlock button with buy button
+            const buyButtonHTML = `
+                <button class="buy-btn" data-cost="${cost * 10}">Buy x1</button>
+                <p class="cost">${(cost * 10).toLocaleString()}</p>
             `;
-        } else if (type === 'cars') {
-            // Logic for buying cars
-            const carsDiv = document.getElementById('investment-cars');
-            carsDiv.classList.remove('locked');
-            carsDiv.innerHTML = `
-                <div class="investment-icon">
-                    <i class="fas fa-car"></i>
-                </div>
-                <div class="investment-info">
-                    <p>Electric Cars: <span id="cars-quantity">0</span>/10</p>
-                    <div class="earnings">
-                        <p>100,000 / sec</p>
-                        <button class="small-btn">0s</button>
-                    </div>
-                </div>
-                <div class="investment-buy">
-                    <button onclick="buyInvestment('more-cars', 606.26)">Buy x1</button>
-                    <p>606.26 quadrillion</p>
-                </div>
-            `;
-        } else if (type === 'solar') {
-            // Logic for buying solar panels
-            let quantity = parseInt(document.getElementById('solar-quantity').innerText);
-            quantity += 1; // Assuming buy x1
-            document.getElementById('solar-quantity').innerText = quantity;
+            investment.querySelector('.investment-actions').innerHTML = buyButtonHTML;
 
-            // Further logic for solar panel purchase
-        } else if (type === 'more-chips') {
-            // Logic for buying more chips
-            let quantity = parseInt(document.getElementById('chips-quantity').innerText);
-            quantity += 1; // Assuming buy x1
-            document.getElementById('chips-quantity').innerText = quantity;
-
-            // Further logic for chips purchase
-        } else if (type === 'more-cars') {
-            // Logic for buying more cars
-            let quantity = parseInt(document.getElementById('cars-quantity').innerText);
-            quantity += 1; // Assuming buy x1
-            document.getElementById('cars-quantity').innerText = quantity;
-
-            // Further logic for car purchase
+            // Add event listener to the new buy button
+            const newBuyButton = investment.querySelector('.buy-btn');
+            newBuyButton.addEventListener('click', () => handleBuy(investment));
+        } else {
+            alert('Not enough money to unlock!');
         }
-    } else {
-        alert('Not enough money to make this purchase.');
     }
-}
 
-// Function to confirm an action
-function confirmAction(actionType) {
-    const modal = document.getElementById('modal');
-    const modalText = document.getElementById('modal-text');
-    
-    if (actionType === 'lawsuit') {
-        modalText.innerText = 'Are you sure you want to file a lawsuit?';
-    } else if (actionType === 'spy') {
-        modalText.innerText = 'Are you sure you want to send a spy?';
+    // Function to handle buying investments
+    function handleBuy(investment) {
+        const investmentType = investment.dataset.investment;
+        const buyButton = investment.querySelector('.buy-btn');
+        const costDisplay = investment.querySelector('.cost');
+        const quantityDisplay = investment.querySelector('#' + investmentType + '-quantity');
+        let ownedQuantity = parseInt(quantityDisplay.textContent);
+
+        const cost = parseInt(buyButton.dataset.cost);
+        if (currentMoney >= cost && ownedQuantity < 10) {
+            updateMoney(-cost);
+            ownedQuantity++;
+            quantityDisplay.textContent = ownedQuantity;
+
+            // Update the buy button's cost for the next purchase (e.g., increase by 1.5x)
+            const newCost = Math.round(cost * 1.5); 
+            buyButton.dataset.cost = newCost;
+            costDisplay.textContent = newCost.toLocaleString();
+
+            // Update earnings based on the investment type
+            if (investmentType === 'solar') {
+                updateEarnings(100);
+            } else if (investmentType === 'chips') {
+                updateEarnings(10000);
+            } else if (investmentType === 'cars') {
+                updateEarnings(100000);
+            }
+        } else if (ownedQuantity >= 10) {
+            alert("You've reached the maximum ownership limit for this investment!");
+        } else {
+            alert('Not enough money to buy!');
+        }
     }
-    
-    modal.style.display = 'flex';
-}
 
-// Function to close the modal
-function closeModal() {
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const investments = document.querySelectorAll('.investment');
+
+    // Event listener for navigation buttons
+    navButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetTabId = button.dataset.target;
+
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(tab => tab.classList.remove('active'));
+
+            button.classList.add('active');
+            document.getElementById(targetTabId).classList.add('active');
+        });
+    });
+
+    // Event listener for investment buttons (both buy and unlock)
+    investments.forEach(investment => {
+        const unlockButton = investment.querySelector('.unlock-btn');
+        const buyButton = investment.querySelector('.buy-btn');
+
+        if (unlockButton) {
+            unlockButton.addEventListener('click', () => unlockInvestment(investment));
+        }
+
+        if (buyButton) {
+            buyButton.addEventListener('click', () => handleBuy(investment));
+        }
+    });
+
     const modal = document.getElementById('modal');
-    modal.style.display = 'none';
-}
 
-// Function to handle modal confirmation
-function confirmModal() {
-    // Add logic for confirming the action
-    closeModal();
-}
+    function openModal(message) {
+        document.getElementById('modal-text').textContent = message;
+        modal.style.display = 'flex';
+    }
 
-updateMoneyDisplay(); // Initial call to display the current money
+    window.openModal = openModal; 
+
+    function closeModal() {
+        modal.style.display = 'none';
+    }
+
+    window.closeModal = closeModal;
+
+    setInterval(() => {
+        updateMoney(earningsPerMin / 60); 
+    }, 1000); 
+});
