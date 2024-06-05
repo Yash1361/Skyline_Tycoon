@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="container-fluid">
-        <div class="box container">
+        <div class="game-container">
             <div class="row info-bar">
                 <div class="col-auto character-icon">
                     <img src="images/login-page Background Removed.png" alt="Character Icon">
@@ -34,14 +34,14 @@
                         <i class="fas fa-solar-panel"></i>
                     </div>
                     <div class="investment-info col">
-                        <p>0/10</p>
+                        <p>Solar Panels: <span id="solar-quantity">0</span>/10</p>
                         <div class="earnings">
                             <p>100 / sec</p>
                             <button class="small-btn btn btn-warning">0s</button>
                         </div>
                     </div>
                     <div class="investment-buy col-auto">
-                        <button class="btn btn-info">Buy x100</button>
+                        <button class="btn btn-info" onclick="buyInvestment('solar', 26.24)">Buy x100</button>
                         <p>26.24 quadrillion</p>
                     </div>
                 </div>
