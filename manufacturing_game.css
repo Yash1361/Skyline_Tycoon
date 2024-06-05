@@ -150,6 +150,32 @@ body, html {
     background-color: #555;
 }
 
+.locked {
+    background-color: #333;
+    color: #999;
+}
+
+.locked .investment-icon {
+    color: #666;
+}
+
+.locked .investment-info p {
+    color: #999;
+}
+
+.buy-btn {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.buy-btn:hover {
+    background-color: #555;
+}
+
 .sabotage {
     display: flex;
     align-items: center;

@@ -16,9 +16,9 @@
                     <img src="images/login-page Background Removed.png" alt="Character Icon">
                 </div>
                 <div class="info-text">
-                    <p>Bonus: 0x</p>
-                    <p>Current Money: $0</p>
-                    <p>Earnings/Min: $0/min</p>
+                    <p id="bonus">Bonus: 0x</p>
+                    <p id="current-money">Current Money: $300000</p>
+                    <p id="earnings-per-min">Earnings/Min: $0/min</p>
                 </div>
             </div>
             <div class="navbar">
@@ -28,14 +28,14 @@
             </div>
             <div class="content" id="invest">
                 <h2>Here you invest</h2>
-                <div class="investment">
+                <div class="investment" id="investment-solar">
                     <div class="investment-icon">
                         <i class="fas fa-solar-panel"></i>
                     </div>
                     <div class="investment-info">
-                        <p>400/500</p>
+                        <p>0/10</p>
                         <div class="earnings">
-                            <p>78.773 billion / sec</p>
+                            <p>100 / sec</p>
                             <button class="small-btn">0s</button>
                         </div>
                     </div>
@@ -44,36 +44,22 @@
                         <p>26.24 quadrillion</p>
                     </div>
                 </div>
-                <div class="investment">
+                <div class="investment locked" id="investment-chips">
                     <div class="investment-icon">
-                        <i class="fas fa-microchip"></i>
+                        <i class="fas fa-lock"></i>
                     </div>
                     <div class="investment-info">
-                        <p>200/225</p>
-                        <div class="earnings">
-                            <p>59.08 billion / sec</p>
-                            <button class="small-btn">0s</button>
-                        </div>
-                    </div>
-                    <div class="investment-buy">
-                        <button>Buy x25</button>
-                        <p>17.606 quadrillion</p>
+                        <p>Invest in Chips</p>
+                        <button class="buy-btn" onclick="buyInvestment('chips', 20000)">Buy for $20000</button>
                     </div>
                 </div>
-                <div class="investment">
+                <div class="investment locked" id="investment-cars">
                     <div class="investment-icon">
-                        <i class="fas fa-car"></i>
+                        <i class="fas fa-lock"></i>
                     </div>
                     <div class="investment-info">
-                        <p>200/300</p>
-                        <div class="earnings">
-                            <p>531.72 billion / sec</p>
-                            <button class="small-btn">0s</button>
-                        </div>
-                    </div>
-                    <div class="investment-buy">
-                        <button>Buy x100</button>
-                        <p>606.26 quadrillion</p>
+                        <p>Invest in Electric Cars</p>
+                        <button class="buy-btn" onclick="buyInvestment('cars', 200000)">Buy for $200000</button>
                     </div>
                 </div>
             </div>
