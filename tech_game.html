@@ -114,35 +114,41 @@
             <div class="tab-content" id="profile">
                 <h2>Player Profile</h2>
                 <div class="profile-content">
-                    <div class="stats-table">
-                        <table>
-                            <tr>
-                                <th>Stat</th>
-                                <th>Value</th>
-                            </tr>
-                            <tr>
-                                <td>Earnings</td>
-                                <td id="total-earnings">$0</td>
-                            </tr>
-                            <tr>
-                                <td>Successful Lawsuits</td>
-                                <td id="successful-lawsuits">0</td>
-                            </tr>
-                            <tr>
-                                <td>Failed Lawsuits</td>
-                                <td id="failed-lawsuits">0</td>
-                            </tr>
-                            <tr>
-                                <td>Successful Spies</td>
-                                <td id="successful-spies">0</td>
-                            </tr>
-                            <tr>
-                                <td>Failed Spies</td>
-                                <td id="failed-spies">0</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="chart-row">
+                    <div class="profile-row"> 
+                        <div class="stats-table">
+                            <h3>Stats</h3>
+                            <table>
+                                <tr>
+                                    <th>Stat</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>Earnings</td>
+                                    <td id="total-earnings">$0</td>
+                                </tr>
+                                <tr>
+                                    <td>Successful Lawsuits</td>
+                                    <td id="successful-lawsuits">0</td>
+                                </tr>
+                                <tr>
+                                    <td>Failed Lawsuits</td>
+                                    <td id="failed-lawsuits">0</td>
+                                </tr>
+                                <tr>
+                                    <td>Successful Spies</td>
+                                    <td id="successful-spies">0</td>
+                                </tr>
+                                <tr>
+                                    <td>Failed Spies</td>
+                                    <td id="failed-spies">0</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="investment-history">
+                            <h3>Investment History</h3>
+                            <ul id="investment-history-list"></ul>
+                        </div>
+                    </div> <div class="chart-row">
                         <div class="chart-container">
                             <canvas id="investmentBreakdownChart"></canvas>
                         </div>
@@ -158,12 +164,9 @@
                             <canvas id="spyChart"></canvas>
                         </div>
                     </div>
-                    <div class="investment-history">
-                        <h3>Investment History</h3>
-                        <ul id="investment-history-list"></ul>
-                    </div>
                 </div>
             </div>
+            
         </div>
     </div>
     <div id="modal" class="modal">

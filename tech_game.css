@@ -744,10 +744,29 @@ h2 { /* Section headings */
 
 /* Profile Tab Styling */
 .profile-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
     gap: 20px;
+    padding: 20px;
+    grid-template-rows: auto auto auto; /* Define three rows */
+}
+
+.profile-row { /* New class to target the first row */
+    grid-column: span 2; /* Span across both columns */
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; 
+}
+
+.stats-table, 
+.investment-history {
+    background-color: rgba(34, 41, 56, 0.9);
+    border: 2px solid rgba(0, 200, 83, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+    color: #f0f0f0;
+    width: 100%; 
+    box-sizing: border-box; 
 }
 
 .stats-table table {
@@ -756,7 +775,8 @@ h2 { /* Section headings */
     margin-bottom: 20px;
 }
 
-.stats-table th, .stats-table td {
+.stats-table th,
+.stats-table td {
     border: 1px solid #00c853;
     padding: 10px;
     text-align: left;
@@ -768,7 +788,8 @@ h2 { /* Section headings */
     text-transform: uppercase;
 }
 
-.chart-row {
+.chart-row { 
+    grid-column: span 2; 
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -778,11 +799,10 @@ h2 { /* Section headings */
 .chart-container {
     width: 100%;
     max-width: 600px;
-}
-
-.investment-history {
-    width: 100%;
-    max-width: 600px;
+    background-color: rgba(34, 41, 56, 0.9);
+    border: 2px solid rgba(0, 200, 83, 0.5);
+    border-radius: 10px;
+    padding: 20px;
 }
 
 .investment-history h3 {
@@ -796,7 +816,7 @@ h2 { /* Section headings */
 }
 
 .investment-history li {
-    background-color: rgba(34, 41, 56, 0.9);
+    background-color: rgba(0, 0, 0, 0.2);
     border: 1px solid #00c853;
     padding: 10px;
     margin-bottom: 5px;
