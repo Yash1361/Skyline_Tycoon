@@ -9,27 +9,36 @@ document.addEventListener('DOMContentLoaded', () => {
             name: "AI Research",
             icon: "fas fa-robot",
             description: "Innovate the future with AI technology.",
-            baseCost: 26000,
-            output: 100,
-            maxQuantity: 10
+            baseCost: 200,
+            outputRange: [10, 500], // Low risk, low reward
+            maxQuantity: 10,
+            risk: "Low",
+            reward: "Low",
+            outcome: "Potential breakthroughs in AI can lead to moderate earnings increase."
         },
         cloud: {
             name: "Cloud Computing",
             icon: "fas fa-cloud",
             description: "Harness the power of cloud infrastructure.",
-            unlockCost: 20000,
-            baseCost: 1000,
-            output: 10000,
-            maxQuantity: 10
+            unlockCost: 50000,
+            baseCost: 20000,
+            outputRange: [12000, 50000], // Medium risk, medium reward
+            maxQuantity: 10,
+            risk: "Medium",
+            reward: "Medium",
+            outcome: "Stable income through reliable cloud services."
         },
         blockchain: {
             name: "Blockchain Development",
             icon: "fas fa-link",
             description: "Revolutionize transactions with blockchain.",
-            unlockCost: 200000,
-            baseCost: 10000,
-            output: 100000,
-            maxQuantity: 10
+            unlockCost: 100000,
+            baseCost: 50000,
+            outputRange: [10000, 100000], // High risk, high reward
+            maxQuantity: 10,
+            risk: "High",
+            reward: "High",
+            outcome: "Revolutionary blockchain technologies can lead to explosive growth."
         }
     };
 
@@ -59,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="investment-stats">
                 ${isUnlocked ? 
                     `<p>Owned: <span id="${investmentKey}-quantity">0</span>/10</p>
-                    <p>Output: <span class="output">${investmentData.output}</span> / sec</p>`
+                    <p>Output: <span class="output">${investmentData.outputRange[0]}-${investmentData.outputRange[1]}</span> / sec</p>`
                     :
                     `<p>Unlock Cost: <span class="cost">$${investmentData.unlockCost.toLocaleString()}</span></p>`
                 }
@@ -71,6 +80,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     :
                     `<button class="buy-btn unlock-btn" data-cost="${investmentData.unlockCost}">Unlock</button>`
                 }
+            </div>
+            <div class="investment-details">
+                <p>Risk: <span class="risk">${investmentData.risk}</span></p>
+                <p>Reward: <span class="reward">${investmentData.reward}</span></p>
+                <p>Outcome: <span class="outcome">${investmentData.outcome}</span></p>
             </div>
         `;
 
@@ -96,15 +110,13 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             const investmentStatsHTML = `
                 <p>Owned: <span id="${investmentType}-quantity">0</span>/${investmentData.maxQuantity}</p>
-                <p>Output: <span class="output">${investmentData.output}</span> / sec</p>
+                <p>Output: <span class="output">${investmentData.outputRange[0]}-${investmentData.outputRange[1]}</span> / sec</p>
             `;
             investment.querySelector('.investment-actions').innerHTML = buyButtonHTML;
             investment.querySelector('.investment-stats').innerHTML = investmentStatsHTML;
 
             const newBuyButton = investment.querySelector('.buy-btn');
             newBuyButton.addEventListener('click', () => handleInvestmentAction(investment));
-
-            updateEarnings(investmentData.output);
         } else {
             alert("Not enough credits to unlock!");
         }
@@ -130,12 +142,18 @@ document.addEventListener('DOMContentLoaded', () => {
            
             costDisplay.textContent = `$${newCost.toLocaleString()}`;
 
-            updateEarnings(investmentData.output);
+            const randomOutput = getRandomOutput(investmentData.outputRange);
+            updateEarnings(randomOutput);
         } else if (ownedQuantity >= investmentData.maxQuantity) {
             alert("You've reached the maximum ownership limit for this investment!");
         } else {
             alert("Not enough credits to acquire!");
         }
+    }
+
+    function getRandomOutput(outputRange) {
+        const [min, max] = outputRange;
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
     function handleInvestmentAction(investment) {

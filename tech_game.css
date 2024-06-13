@@ -713,3 +713,29 @@ h2 { /* Section headings */
 .modal-content.failure-content button:hover {
     background: rgba(255, 0, 0, 0.4);
 }
+
+/* Investment Details */
+.investment-details {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #ccc;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.investment-details p {
+    margin: 5px 0;
+}
+
+.investment-details .risk {
+    color: #ffcc00; /* Yellow for risk */
+}
+
+.investment-details .reward {
+    color: #ffcc00; /* Green for reward */
+}
+
+.investment-details .outcome {
+    color: #00ccff; /* Cyan for outcome */
+}
