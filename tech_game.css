@@ -748,11 +748,11 @@ h2 { /* Section headings */
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
     gap: 20px;
     padding: 20px;
-    grid-template-rows: auto auto auto; /* Define three rows */
+    grid-template-rows: auto auto auto; 
 }
 
-.profile-row { /* New class to target the first row */
-    grid-column: span 2; /* Span across both columns */
+.profile-row { 
+    grid-column: span 2; 
     display: flex;
     justify-content: space-between;
     gap: 20px; 
@@ -802,7 +802,17 @@ h2 { /* Section headings */
     background-color: rgba(34, 41, 56, 0.9);
     border: 2px solid rgba(0, 200, 83, 0.5);
     border-radius: 10px;
-    padding: 20px;
+    padding: 20px; 
+}
+
+.chart-container h3 {  /* Style the chart titles */
+    background-color: rgba(0, 0, 0, 0.4); 
+    padding: 5px 10px;
+    border-radius: 5px; 
+    margin-bottom: 10px; 
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #00c853; 
 }
 
 .investment-history h3 {

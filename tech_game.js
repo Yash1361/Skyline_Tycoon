@@ -367,8 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     position: 'top',
                 },
                 title: {
-                    display: true,
-                    text: 'Investment Breakdown'
+                    display: false,
                 }
             }
         }
@@ -391,8 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     position: 'top',
                 },
                 title: {
-                    display: true,
-                    text: 'Output Breakdown'
+                    display: false,
                 }
             }
         }
@@ -415,8 +413,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     position: 'top',
                 },
                 title: {
-                    display: true,
-                    text: 'Lawsuit Success Rate'
+                    display: false,
                 }
             }
         }
@@ -439,8 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     position: 'top',
                 },
                 title: {
-                    display: true,
-                    text: 'Spy Success Rate'
+                    display: false,
                 }
             }
         }
