@@ -609,7 +609,7 @@ h2 { /* Section headings */
 
 /* Base Modal Content Style */
 .modal-content {
-    background: rgba(255, 255, 255, 0.1);
+    background: #1e1e1e;
     border: 2px solid rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(10px);
     border-radius: 15px;
@@ -636,7 +636,7 @@ h2 { /* Section headings */
 
 /* Success Modal Styles */
 .modal-content.success-content {
-    background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 128, 0, 0.2));
+    background: #2e7d32;
     border: 2px solid rgba(0, 255, 0, 0.5);
     box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
 }
@@ -656,7 +656,7 @@ h2 { /* Section headings */
 
 /* Failure Modal Styles */
 .modal-content.failure-content {
-    background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(128, 0, 0, 0.2));
+    background: #b71c1c;
     border: 2px solid rgba(255, 0, 0, 0.5);
     box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
 }
