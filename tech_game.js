@@ -339,48 +339,102 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const modal = document.getElementById('modal');
 
-    const earningsChartCtx = document.getElementById('earningsChart').getContext('2d');
-    const earningsChart = new Chart(earningsChartCtx, {
-        type: 'line',
+    const investmentBreakdownChartCtx = document.getElementById('investmentBreakdownChart').getContext('2d');
+    const investmentBreakdownChart = new Chart(investmentBreakdownChartCtx, {
+        type: 'pie',
         data: {
-            labels: [], // Time intervals
+            labels: ['AI Research', 'Cloud Computing', 'Blockchain Development'],
             datasets: [{
-                label: 'Earnings Over Time',
-                data: [], // Earnings data
-                borderColor: '#00c853',
-                backgroundColor: 'rgba(0, 200, 83, 0.2)',
-                fill: true
+                data: [0, 0, 0],
+                backgroundColor: ['#00c853', '#0288d1', '#ff5722'],
             }]
         },
         options: {
             responsive: true,
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Time'
-                    }
+            plugins: {
+                legend: {
+                    position: 'top',
                 },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Earnings ($)'
-                    }
+                title: {
+                    display: true,
+                    text: 'Investment Breakdown'
                 }
             }
         }
     });
 
-    function updateEarningsChart(newTime, newEarnings) {
-        earningsChart.data.labels.push(newTime);
-        earningsChart.data.datasets[0].data.push(newEarnings);
-        earningsChart.update();
+    function updateInvestmentBreakdownChart(aiCount, cloudCount, blockchainCount) {
+        investmentBreakdownChart.data.datasets[0].data = [aiCount, cloudCount, blockchainCount];
+        investmentBreakdownChart.update();
+    }
+
+    const lawsuitSpySuccessRateChartCtx = document.getElementById('lawsuitSpySuccessRateChart').getContext('2d');
+    const lawsuitSpySuccessRateChart = new Chart(lawsuitSpySuccessRateChartCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Successful Lawsuits', 'Failed Lawsuits', 'Successful Spies', 'Failed Spies'],
+            datasets: [{
+                data: [successfulLawsuits, failedLawsuits, successfulSpies, failedSpies],
+                backgroundColor: ['#4caf50', '#f44336', '#2196f3', '#ff9800'],
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Lawsuit and Spy Success Rate'
+                }
+            }
+        }
+    });
+
+    function updateLawsuitSpySuccessRateChart() {
+        lawsuitSpySuccessRateChart.data.datasets[0].data = [successfulLawsuits, failedLawsuits, successfulSpies, failedSpies];
+        lawsuitSpySuccessRateChart.update();
     }
 
     setInterval(() => {
         const earningsPerSecond = earningsPerMin / 60;
         updateMoney(earningsPerSecond);
         updateTotalEarnings(earningsPerSecond);
-        updateEarningsChart(new Date().toLocaleTimeString(), earningsPerSecond);
+        updateLawsuitSpySuccessRateChart();
     }, 1000);
+
+    const investmentCounts = { ai: 0, cloud: 0, blockchain: 0 };
+    function buyInvestment(investment) {
+        const investmentType = investment.dataset.investment;
+        const investmentData = investmentsData[investmentType];
+        const buyButton = investment.querySelector('.buy-btn');
+        const costDisplay = investment.querySelector('.cost');
+        const quantityDisplay = investment.querySelector(`#${investmentType}-quantity`);
+        let ownedQuantity = parseInt(quantityDisplay.textContent);
+
+        const cost = parseInt(buyButton.dataset.cost.replace(/,/g, ''), 10); 
+
+        if (currentMoney >= cost && ownedQuantity < investmentData.maxQuantity) {
+            updateMoney(-cost);
+            ownedQuantity++;
+            quantityDisplay.textContent = ownedQuantity;
+
+            const newCost = Math.round(cost * 1.15); 
+            buyButton.dataset.cost = newCost;
+           
+            costDisplay.textContent = `$${newCost.toLocaleString()}`;
+
+            const randomOutput = getRandomOutput(investmentData.outputRange);
+            updateEarnings(randomOutput);
+            updateTotalEarnings(randomOutput);
+            updateInvestmentHistory(investmentData, randomOutput);
+            investmentCounts[investmentType]++;
+            updateInvestmentBreakdownChart(investmentCounts.ai, investmentCounts.cloud, investmentCounts.blockchain);
+        } else if (ownedQuantity >= investmentData.maxQuantity) {
+            alert("You've reached the maximum ownership limit for this investment!");
+        } else {
+            alert("Not enough credits to acquire!");
+        }
+    }
 });
