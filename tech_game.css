@@ -768,6 +768,13 @@ h2 { /* Section headings */
     text-transform: uppercase;
 }
 
+.chart-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 20px;
+}
+
 .chart-container {
     width: 100%;
     max-width: 600px;
