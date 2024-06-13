@@ -35,15 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateMoney(amount) {
         currentMoney += amount;
-        moneyDisplay.textContent = `Money: $${currentMoney.toLocaleString()}`;
+        moneyDisplay.textContent = `Credits: $${currentMoney.toLocaleString()}`;
     }
 
     function updateEarnings(amount) {
         earningsPerMin += amount;
-        earningsDisplay.textContent = `Earnings/Min: $${earningsPerMin.toLocaleString()}`;
+        earningsDisplay.textContent = `Credit Flow/s: $${earningsPerMin.toLocaleString()}`;
     }
 
-    // Function to create an investment element (modified for new HTML structure)
     function createInvestmentElement(investmentKey, investmentData) {
         const investmentDiv = document.createElement('div');
         investmentDiv.classList.add('investment', investmentKey === 'ai' ? 'active' : 'locked');
@@ -75,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
-        // Add event listeners after the HTML is set
         const buyButton = investmentDiv.querySelector('.buy-btn');
         buyButton.addEventListener('click', () => handleInvestmentAction(investmentDiv));
 
@@ -92,26 +90,23 @@ document.addEventListener('DOMContentLoaded', () => {
             updateMoney(-cost);
             investment.classList.remove('locked');
 
-            // After unlocking, replace unlock button with buy button and update stats
             const buyButtonHTML = `
-                <button class="buy-btn" data-cost="${investmentData.baseCost}">Buy x1</button>
+                <button class="buy-btn" data-cost="${investmentData.baseCost}">Acquire (1x)</button>
                 <p class="cost">$${investmentData.baseCost.toLocaleString()}</p>
             `;
             const investmentStatsHTML = `
-                <p>Owned: <span id="${investmentType}-quantity">1</span>/${investmentData.maxQuantity}</p>
+                <p>Owned: <span id="${investmentType}-quantity">0</span>/${investmentData.maxQuantity}</p>
                 <p>Output: <span class="output">${investmentData.output}</span> / sec</p>
             `;
             investment.querySelector('.investment-actions').innerHTML = buyButtonHTML;
             investment.querySelector('.investment-stats').innerHTML = investmentStatsHTML;
 
-            // Add event listener to the new buy button
             const newBuyButton = investment.querySelector('.buy-btn');
             newBuyButton.addEventListener('click', () => handleInvestmentAction(investment));
 
-            // Update earnings and owned quantity
             updateEarnings(investmentData.output);
         } else {
-            alert("Not enough money to unlock!");
+            alert("Not enough credits to unlock!");
         }
     }
 
@@ -130,16 +125,15 @@ document.addEventListener('DOMContentLoaded', () => {
             ownedQuantity++;
             quantityDisplay.textContent = ownedQuantity;
 
-            // Update the buy button's cost for the next purchase 
             const newCost = Math.round(cost * 1.15); 
             buyButton.dataset.cost = newCost;
-            costDisplay.textContent = newCost.toLocaleString();
+            costDisplay.textContent = `$${newCost.toLocaleString()}`;
 
             updateEarnings(investmentData.output);
         } else if (ownedQuantity >= investmentData.maxQuantity) {
             alert("You've reached the maximum ownership limit for this investment!");
         } else {
-            alert("Not enough money to buy!");
+            alert("Not enough credits to acquire!");
         }
     }
 
@@ -151,6 +145,54 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function handleLawsuit(targetName) {
+        const lawsuitSuccessChance = Math.floor(Math.random() * 100) + 1;
+        const penaltyChance = Math.floor(Math.random() * 50) + 1;
+        const penaltyAmount = Math.floor(Math.random() * 50000) + 10000;
+
+        const lawsuitMessage = `
+            Filing a lawsuit can be a quick way to slow down your competitors while increasing your own wealth. However, if it fails, the consequences can be harsh:
+            <br><br>
+            - Legal fees and penalties may drain your resources.
+            <br>
+            - You might lose credibility in the industry.
+            <br>
+            - Risk of counter-lawsuits and further financial loss.
+            <br><br>
+            Stats for this lawsuit:
+            <br>
+            - Chance of Success: ${lawsuitSuccessChance}%
+            <br>
+            - Chance of Harsh Penalty: ${penaltyChance}%
+            <br>
+            - Potential Penalty Amount: $${penaltyAmount.toLocaleString()}
+        `;
+
+        openModal(lawsuitMessage, () => {
+            if (Math.random() * 100 < lawsuitSuccessChance) {
+                alert(`Lawsuit successful against ${targetName}! You have gained resources.`);
+                updateMoney(penaltyAmount); // Example: Gain the penalty amount on success
+            } else {
+                alert(`Lawsuit failed against ${targetName}. You have been penalized $${penaltyAmount.toLocaleString()}.`);
+                updateMoney(-penaltyAmount);
+            }
+        });
+    }
+
+    function openModal(message, confirmCallback) {
+        document.getElementById('modal-text').innerHTML = message;
+        document.getElementById('confirm-modal-btn').onclick = () => {
+            confirmCallback();
+            closeModal();
+        };
+        modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+        modal.style.display = 'none';
+    }
+
+    window.closeModal = closeModal;
 
     const investmentGrid = document.querySelector('.investment-grid');
     for (const investmentKey in investmentsData) {
@@ -173,36 +215,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-
-    // Function to handle sabotage actions - To be implemented
-    function handleSabotage(action, target) {
-        console.log(`You are attempting to ${action} ${target}. This functionality is under construction.`); 
-    }
-
-    // Event listener for sabotage buttons - To be implemented
     const sabotageButtons = document.querySelectorAll('.sabotage-btn');
     sabotageButtons.forEach(button => {
         button.addEventListener('click', () => {
             const action = button.dataset.action;
             const target = button.parentElement.parentElement.querySelector('h3').textContent;
-            handleSabotage(action, target);
+            if (action === 'lawsuit') {
+                handleLawsuit(target);
+            } else {
+                handleSabotage(action, target);
+            }
         });
     });
 
     const modal = document.getElementById('modal');
-
-    function openModal(message) {
-        document.getElementById('modal-text').textContent = message;
-        modal.style.display = 'flex';
-    }
-
-    window.openModal = openModal;
-
-    function closeModal() {
-        modal.style.display = 'none';
-    }
-
-    window.closeModal = closeModal;
 
     setInterval(() => {
         updateMoney(earningsPerMin / 60);
