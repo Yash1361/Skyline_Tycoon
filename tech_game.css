@@ -12,7 +12,7 @@ body, html {
     height: 100%;
     font-family: 'Exo 2', sans-serif;
     color: #f0f0f0;
-    overflow: hidden;
+    overflow: auto;
     background-image: url('images/city.png') !important; 
     background-size: cover;
     background-position: center;
@@ -28,6 +28,8 @@ body, html {
     padding: 20px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     background-color: rgba(12, 18, 31, 0.85);
+    overflow: auto;
+    max-height: 98vh;
 }
 
 /* HUD */
@@ -738,4 +740,59 @@ h2 { /* Section headings */
 
 .investment-details .outcome {
     color: #00ccff; /* Cyan for outcome */
+}
+
+/* Profile Tab Styling */
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.stats-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.stats-table th, .stats-table td {
+    border: 1px solid #00c853;
+    padding: 10px;
+    text-align: left;
+    color: #00c853;
+}
+
+.stats-table th {
+    background-color: #222;
+    text-transform: uppercase;
+}
+
+.chart-container {
+    width: 100%;
+    max-width: 600px;
+}
+
+.investment-history {
+    width: 100%;
+    max-width: 600px;
+}
+
+.investment-history h3 {
+    color: #00c853;
+    margin-bottom: 10px;
+}
+
+.investment-history ul {
+    list-style: none;
+    padding: 0;
+}
+
+.investment-history li {
+    background-color: rgba(34, 41, 56, 0.9);
+    border: 1px solid #00c853;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    color: #f0f0f0;
 }

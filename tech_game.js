@@ -1,8 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
     let currentMoney = 200000;
     let earningsPerMin = 0;
+    let totalEarnings = 0;
+    let successfulLawsuits = 0;
+    let failedLawsuits = 0;
+    let successfulSpies = 0;
+    let failedSpies = 0;
     const moneyDisplay = document.getElementById('current-money');
     const earningsDisplay = document.getElementById('earnings-per-min');
+    const totalEarningsDisplay = document.getElementById('total-earnings');
+    const successfulLawsuitsDisplay = document.getElementById('successful-lawsuits');
+    const failedLawsuitsDisplay = document.getElementById('failed-lawsuits');
+    const successfulSpiesDisplay = document.getElementById('successful-spies');
+    const failedSpiesDisplay = document.getElementById('failed-spies');
+    const investmentHistoryList = document.getElementById('investment-history-list');
 
     const investmentsData = {
         ai: {
@@ -50,6 +61,17 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateEarnings(amount) {
         earningsPerMin += amount;
         earningsDisplay.textContent = `Credit Flow/s: $${earningsPerMin.toLocaleString()}`;
+    }
+
+    function updateTotalEarnings(amount) {
+        totalEarnings += amount;
+        totalEarningsDisplay.textContent = `$${totalEarnings.toLocaleString()}`;
+    }
+
+    function updateInvestmentHistory(investment, output) {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${investment.name}: Output $${output.toLocaleString()}`;
+        investmentHistoryList.appendChild(listItem);
     }
 
     function createInvestmentElement(investmentKey, investmentData) {
@@ -144,6 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const randomOutput = getRandomOutput(investmentData.outputRange);
             updateEarnings(randomOutput);
+            updateTotalEarnings(randomOutput);
+            updateInvestmentHistory(investmentData, randomOutput);
         } else if (ownedQuantity >= investmentData.maxQuantity) {
             alert("You've reached the maximum ownership limit for this investment!");
         } else {
@@ -190,10 +214,14 @@ document.addEventListener('DOMContentLoaded', () => {
         openModal(lawsuitMessage, () => {
             if (Math.random() * 100 < lawsuitSuccessChance) {
                 showSuccessModal(`Lawsuit successful against ${targetName}! You have gained $${penaltyAmount.toLocaleString()}.`);
-                updateMoney(penaltyAmount); // Example: Gain the penalty amount on success
+                updateMoney(penaltyAmount);
+                successfulLawsuits++;
+                successfulLawsuitsDisplay.textContent = successfulLawsuits;
             } else {
                 showFailureModal(`Lawsuit failed against ${targetName}. You have been penalized $${penaltyAmount.toLocaleString()}.`);
                 updateMoney(-penaltyAmount);
+                failedLawsuits++;
+                failedLawsuitsDisplay.textContent = failedLawsuits;
             }
         });
     }
@@ -224,10 +252,14 @@ document.addEventListener('DOMContentLoaded', () => {
         openModal(spyMessage, () => {
             if (Math.random() * 100 < spySuccessChance) {
                 showSuccessModal(`Spy mission successful against ${targetName}! You have gained $${penaltyAmount.toLocaleString()} worth of trade secrets.`);
-                updateMoney(penaltyAmount); // Example: Gain the penalty amount on success
+                updateMoney(penaltyAmount);
+                successfulSpies++;
+                successfulSpiesDisplay.textContent = successfulSpies;
             } else {
                 showFailureModal(`Spy mission failed against ${targetName}. You have been penalized $${penaltyAmount.toLocaleString()}.`);
                 updateMoney(-penaltyAmount);
+                failedSpies++;
+                failedSpiesDisplay.textContent = failedSpies;
             }
         });
     }
@@ -307,7 +339,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const modal = document.getElementById('modal');
 
+    const earningsChartCtx = document.getElementById('earningsChart').getContext('2d');
+    const earningsChart = new Chart(earningsChartCtx, {
+        type: 'line',
+        data: {
+            labels: [], // Time intervals
+            datasets: [{
+                label: 'Earnings Over Time',
+                data: [], // Earnings data
+                borderColor: '#00c853',
+                backgroundColor: 'rgba(0, 200, 83, 0.2)',
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Time'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Earnings ($)'
+                    }
+                }
+            }
+        }
+    });
+
+    function updateEarningsChart(newTime, newEarnings) {
+        earningsChart.data.labels.push(newTime);
+        earningsChart.data.datasets[0].data.push(newEarnings);
+        earningsChart.update();
+    }
+
     setInterval(() => {
-        updateMoney(earningsPerMin / 60);
+        const earningsPerSecond = earningsPerMin / 60;
+        updateMoney(earningsPerSecond);
+        updateTotalEarnings(earningsPerSecond);
+        updateEarningsChart(new Date().toLocaleTimeString(), earningsPerSecond);
     }, 1000);
 });
