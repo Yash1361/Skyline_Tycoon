@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p class="cost">$${investmentData.baseCost.toLocaleString()}</p>
             `;
             const investmentStatsHTML = `
-                <p>Owned: <span id="${investmentType}-quantity">0</span>/${investmentData.maxQuantity}</p>
+                <p>Owned: <span id="${investmentType}-quantity">1</span>/${investmentData.maxQuantity}</p>
                 <p>Output: <span class="output">${investmentData.output}</span> / sec</p>
             `;
             investment.querySelector('.investment-actions').innerHTML = buyButtonHTML;
@@ -107,6 +107,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Add event listener to the new buy button
             const newBuyButton = investment.querySelector('.buy-btn');
             newBuyButton.addEventListener('click', () => handleInvestmentAction(investment));
+
+            // Update earnings and owned quantity
+            updateEarnings(investmentData.output);
         } else {
             alert("Not enough money to unlock!");
         }
