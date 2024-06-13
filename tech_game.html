@@ -119,7 +119,21 @@
             <button class="btn btn-secondary" onclick="closeModal()">Go Back</button>
             <button class="btn btn-primary" id="confirm-modal-btn">Proceed</button>
         </div>
-    </div>    
+    </div>
+    
+    <div id="success-modal" class="modal">
+        <div class="modal-content success-content">
+            <p id="success-modal-text"></p>
+            <button class="btn btn-primary" onclick="closeSuccessModal()">Close</button>
+        </div>
+    </div>
+    
+    <div id="failure-modal" class="modal">
+        <div class="modal-content failure-content">
+            <p id="failure-modal-text"></p>
+            <button class="btn btn-primary" onclick="closeFailureModal()">Close</button>
+        </div>
+    </div>        
 
     <script src="tech_game.js"></script>
 </body>

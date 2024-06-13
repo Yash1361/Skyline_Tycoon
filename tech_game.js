@@ -170,10 +170,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         openModal(lawsuitMessage, () => {
             if (Math.random() * 100 < lawsuitSuccessChance) {
-                alert(`Lawsuit successful against ${targetName}! You have gained resources.`);
+                showSuccessModal(`Lawsuit successful against ${targetName}! You have gained $${penaltyAmount.toLocaleString()}.`);
                 updateMoney(penaltyAmount); // Example: Gain the penalty amount on success
             } else {
-                alert(`Lawsuit failed against ${targetName}. You have been penalized $${penaltyAmount.toLocaleString()}.`);
+                showFailureModal(`Lawsuit failed against ${targetName}. You have been penalized $${penaltyAmount.toLocaleString()}.`);
                 updateMoney(-penaltyAmount);
             }
         });
@@ -193,6 +193,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.closeModal = closeModal;
+
+    function showSuccessModal(message) {
+        document.getElementById('success-modal-text').innerHTML = message;
+        document.getElementById('success-modal').style.display = 'flex';
+    }
+
+    function closeSuccessModal() {
+        document.getElementById('success-modal').style.display = 'none';
+    }
+
+    window.closeSuccessModal = closeSuccessModal;
+
+    function showFailureModal(message) {
+        document.getElementById('failure-modal-text').innerHTML = message;
+        document.getElementById('failure-modal').style.display = 'flex';
+    }
+
+    function closeFailureModal() {
+        document.getElementById('failure-modal').style.display = 'none';
+    }
+
+    window.closeFailureModal = closeFailureModal;
 
     const investmentGrid = document.querySelector('.investment-grid');
     for (const investmentKey in investmentsData) {
