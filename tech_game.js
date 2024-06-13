@@ -127,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const newCost = Math.round(cost * 1.15); 
             buyButton.dataset.cost = newCost;
+           
             costDisplay.textContent = `$${newCost.toLocaleString()}`;
 
             updateEarnings(investmentData.output);
@@ -174,6 +175,40 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateMoney(penaltyAmount); // Example: Gain the penalty amount on success
             } else {
                 showFailureModal(`Lawsuit failed against ${targetName}. You have been penalized $${penaltyAmount.toLocaleString()}.`);
+                updateMoney(-penaltyAmount);
+            }
+        });
+    }
+
+    function handleSpy(targetName) {
+        const spySuccessChance = Math.floor(Math.random() * 100) + 1;
+        const penaltyChance = Math.floor(Math.random() * 50) + 1;
+        const penaltyAmount = Math.floor(Math.random() * 50000) + 10000;
+
+        const spyMessage = `
+            Sending a spy can be a quick way to gain trade secrets from your competitors, potentially giving you a significant advantage. However, if it fails, the consequences can be severe:
+            <br><br>
+            - Legal repercussions and fines may drain your resources.
+            <br>
+            - You might lose credibility and face counter-espionage measures.
+            <br>
+            - Risk of heavy financial losses and strategic setbacks.
+            <br><br>
+            Stats for this espionage attempt:
+            <br>
+            - Chance of Success: ${spySuccessChance}%
+            <br>
+            - Chance of Harsh Penalty: ${penaltyChance}%
+            <br>
+            - Potential Penalty Amount: $${penaltyAmount.toLocaleString()}
+        `;
+
+        openModal(spyMessage, () => {
+            if (Math.random() * 100 < spySuccessChance) {
+                showSuccessModal(`Spy mission successful against ${targetName}! You have gained $${penaltyAmount.toLocaleString()} worth of trade secrets.`);
+                updateMoney(penaltyAmount); // Example: Gain the penalty amount on success
+            } else {
+                showFailureModal(`Spy mission failed against ${targetName}. You have been penalized $${penaltyAmount.toLocaleString()}.`);
                 updateMoney(-penaltyAmount);
             }
         });
@@ -244,6 +279,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const target = button.parentElement.parentElement.querySelector('h3').textContent;
             if (action === 'lawsuit') {
                 handleLawsuit(target);
+            } else if (action === 'spy') {
+                handleSpy(target);
             } else {
                 handleSabotage(action, target);
             }
