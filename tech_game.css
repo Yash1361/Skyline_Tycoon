@@ -910,3 +910,136 @@ h2 { /* Section headings */
 .trade-btn:hover {
     background-color: #0a0;
 }
+
+/* Custom Trade Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border: 1px solid #00c853;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.modal-content h2 {
+    color: #00c853;
+    margin-bottom: 20px;
+}
+
+.modal-content label {
+    display: block;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.modal-content input[type="number"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #00c853;
+    border-radius: 5px;
+}
+
+.modal-content .slider {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.modal-content .btn {
+    display: inline-block;
+    background-color: #00c853;
+    color: #1e1e1e;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content .btn:hover {
+    background-color: #00b344;
+}
+
+.modal-content .btn-secondary {
+    background-color: #333;
+    color: #f0f0f0;
+    margin-right: 10px;
+}
+
+.modal-content .btn-secondary:hover {
+    background-color: #444;
+}
+
+.modal-content .trade-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.trade-btn {
+    display: block; /* Make the button take up full width */
+    width: 100%; 
+    margin-top: 15px;
+    background-color: #0f0;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    text-align: center; /* Center text within the button */
+}
+
+.trade-btn:hover {
+    background-color: #0a0;
+}
+
+#new-trade-btn {
+    margin-top: 20px;
+    background-color: #00c853;
+    border: 2px solid #00c853;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #1e1e1e;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#new-trade-btn:hover {
+    background-color: #1e1e1e;
+    color: #00c853;
+}
+
+#custom-trade-modal .trade-options {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+#custom-trade-modal label {
+    font-size: 1.2rem;
+}
+
+#custom-trade-modal input[type="number"], 
+#custom-trade-modal .slider {
+    width: 80%;
+}

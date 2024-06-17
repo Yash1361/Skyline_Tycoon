@@ -14,6 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const successfulSpiesDisplay = document.getElementById('successful-spies');
     const failedSpiesDisplay = document.getElementById('failed-spies');
     const investmentHistoryList = document.getElementById('investment-history-list');
+    const customTradeModal = document.getElementById('custom-trade-modal');
+    document.getElementById('new-trade-btn').addEventListener('click', openCustomTradeModal);
+    syncSliderWithInput('offer-amount', 'offer-slider');
+    syncSliderWithInput('request-amount', 'request-slider');
 
     const investmentsData = {
         ai: {
@@ -558,4 +562,61 @@ document.addEventListener('DOMContentLoaded', () => {
             openTradeModal(trader);
         });
     });
+
+    // Function to open the custom trade modal
+    function openCustomTradeModal() {
+        customTradeModal.style.display = 'flex';
+    }
+
+    // Function to close the custom trade modal
+    function closeCustomTradeModal() {
+        customTradeModal.style.display = 'none';
+    }
+
+    window.closeCustomTradeModal = closeCustomTradeModal;
+
+    // Function to create a new trade
+    function createTrade() {
+        const offerType = document.getElementById('offer-type').value;
+        const offerAmount = parseInt(document.getElementById('offer-amount').value, 10);
+        const requestType = document.getElementById('request-type').value;
+        const requestAmount = parseInt(document.getElementById('request-amount').value, 10);
+
+        const trade = {
+            offerType,
+            offerAmount,
+            requestType,
+            requestAmount
+        };
+
+        // Append new trade to the market list
+        const tradeElement = `
+            <div class="trader">
+                <div class="trader-header">
+                    <h3>Your Trade</h3>
+                </div>
+                <p>Offering: ${trade.offerAmount} ${trade.offerType}</p>
+                <p>Wants: ${trade.requestAmount} ${trade.requestType}</p>
+            </div>
+        `;
+        marketList.innerHTML += tradeElement;
+
+        closeCustomTradeModal();
+    }
+
+    window.createTrade = createTrade;
+
+    // Update these functions to include the slider functionality
+    function syncSliderWithInput(inputId, sliderId) {
+        const input = document.getElementById(inputId);
+        const slider = document.getElementById(sliderId);
+
+        input.addEventListener('input', () => {
+            slider.value = input.value;
+        });
+
+        slider.addEventListener('input', () => {
+            input.value = slider.value;
+        });
+    }
 });

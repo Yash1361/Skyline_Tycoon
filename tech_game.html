@@ -113,8 +113,8 @@
 
             <div class="tab-content" id="market">
                 <h2>Market</h2>
-                <div class="market-list">
-                    </div>
+                <button id="new-trade-btn">Start New Trade</button>
+                <div class="market-list"></div>
             </div>
 
             <div class="tab-content" id="profile">
@@ -213,6 +213,34 @@
             <button class="btn btn-primary" onclick="closeFailureModal()">Close</button>
         </div>
     </div>        
+
+    <div id="custom-trade-modal" class="modal">
+        <div class="modal-content">
+            <h2>Create a Trade</h2>
+            <div class="trade-options">
+                <div class="offer-section">
+                    <label for="offer-type">What are you offering?</label>
+                    <select id="offer-type">
+                        <option value="money">Credits</option>
+                        <option value="units">Units</option>
+                    </select>
+                    <input type="number" id="offer-amount" min="0" value="0">
+                    <input type="range" id="offer-slider" class="slider" min="0" max="100000" value="0">
+                </div>
+                <div class="request-section">
+                    <label for="request-type">What do you want?</label>
+                    <select id="request-type">
+                        <option value="money">Credits</option>
+                        <option value="units">Units</option>
+                    </select>
+                    <input type="number" id="request-amount" min="0" value="0">
+                    <input type="range" id="request-slider" class="slider" min="0" max="100000" value="0">
+                </div>
+            </div>
+            <button class="btn btn-secondary" onclick="closeCustomTradeModal()">Cancel</button>
+            <button class="btn btn-primary" onclick="createTrade()">Create Trade</button>
+        </div>
+    </div>
 
     <script src="tech_game.js"></script>
 </body>
