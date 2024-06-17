@@ -834,25 +834,33 @@ h2 { /* Section headings */
     color: #f0f0f0;
 }
 
+/*  ----- Rest of your CSS above ----- */
+
 /* Market Tab */
 #market {
-    background-color: rgba(0, 0, 0, 0.7); /* Slightly darker background for contrast */
+    background-color: rgba(0, 0, 0, 0.7);
     padding: 20px;
     border-radius: 10px;
 }
 
 .market-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
 }
 
 .trader {
-    border: 2px solid #0f0; /* Green border for traders */
-    padding: 15px;
-    border-radius: 10px;
-    background-color: rgba(0, 50, 0, 0.8); /* Dark green background */
-    color: #fff;
+    background-color: rgba(34, 41, 56, 0.9);
+    border-radius: 8px;
+    padding: 20px;
+    color: #f0f0f0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.trader:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
 }
 
 .trader-header {
@@ -861,55 +869,44 @@ h2 { /* Section headings */
     margin-bottom: 10px;
 }
 
-.trader img {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
+.trader-header img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #00c853;
+    margin-right: 15px;
+}
+
+.trader-header h3 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #ffffff;
+}
+
+.trader p {
+    margin: 5px 0;
+    font-size: 1.2rem;
+}
+
+.trader p:first-of-type {
+    color: #00c853; 
 }
 
 .trade-btn {
-    background-color: #0f0; /* Green button */
+    display: block; /* Make the button take up full width */
+    width: 100%; 
+    margin-top: 15px;
+    background-color: #0f0;
     color: #000;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-weight: bold;
+    text-align: center; /* Center text within the button */
 }
 
 .trade-btn:hover {
-    background-color: #0a0; /* Darker green on hover */
-}
-
-/* Trade Modal */
-#trade-modal .modal-content {
-    background-color: rgba(0, 50, 0, 0.9); /* Darker green background */
-}
-
-#trade-modal h2 {
-    color: #0f0; /* Green heading */
-}
-
-#trade-modal .trade-options {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 20px;
-}
-
-#trade-modal .offer-section {
-    text-align: center;
-}
-
-#trade-modal label {
-    color: #fff;
-}
-
-#trade-modal input[type="number"] {
-    width: 80px;
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #0f0; /* Green border */
-    color: #fff;
-    background-color: rgba(0, 50, 0, 0.8); /* Dark green background */
+    background-color: #0a0;
 }
