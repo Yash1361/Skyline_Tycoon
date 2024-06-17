@@ -14,10 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const successfulSpiesDisplay = document.getElementById('successful-spies');
     const failedSpiesDisplay = document.getElementById('failed-spies');
     const investmentHistoryList = document.getElementById('investment-history-list');
-    const customTradeModal = document.getElementById('custom-trade-modal');
-    document.getElementById('new-trade-btn').addEventListener('click', openCustomTradeModal);
-    syncSliderWithInput('offer-amount', 'offer-slider');
-    syncSliderWithInput('request-amount', 'request-slider');
+    const marketList = document.querySelector('.market-list');
 
     const investmentsData = {
         ai: {
@@ -538,8 +535,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 1000);
 
     // Market setup
-    const marketList = document.querySelector('.market-list');
-
     tradersData.forEach(trader => {
         const traderElement = `
             <div class="trader">
@@ -563,19 +558,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Function to open the custom trade modal
+    // Custom trade setup
+    const customTradeModal = document.getElementById('custom-trade-modal');
+
     function openCustomTradeModal() {
         customTradeModal.style.display = 'flex';
     }
 
-    // Function to close the custom trade modal
     function closeCustomTradeModal() {
         customTradeModal.style.display = 'none';
     }
 
     window.closeCustomTradeModal = closeCustomTradeModal;
 
-    // Function to create a new trade
     function createTrade() {
         const offerType = document.getElementById('offer-type').value;
         const offerAmount = parseInt(document.getElementById('offer-amount').value, 10);
@@ -589,7 +584,6 @@ document.addEventListener('DOMContentLoaded', () => {
             requestAmount
         };
 
-        // Append new trade to the market list
         const tradeElement = `
             <div class="trader">
                 <div class="trader-header">
@@ -606,7 +600,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.createTrade = createTrade;
 
-    // Update these functions to include the slider functionality
+    document.getElementById('new-trade-btn').addEventListener('click', openCustomTradeModal);
+
     function syncSliderWithInput(inputId, sliderId) {
         const input = document.getElementById(inputId);
         const slider = document.getElementById(sliderId);
@@ -619,4 +614,7 @@ document.addEventListener('DOMContentLoaded', () => {
             input.value = slider.value;
         });
     }
+
+    syncSliderWithInput('offer-amount', 'offer-slider');
+    syncSliderWithInput('request-amount', 'request-slider');
 });
