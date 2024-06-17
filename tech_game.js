@@ -571,36 +571,88 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.closeCustomTradeModal = closeCustomTradeModal;
 
+    function updateOfferOptions() {
+        const offerType = document.getElementById('offer-type').value;
+        const offerAmountContainer = document.getElementById('offer-amount-container');
+        const offerUnitsContainer = document.getElementById('offer-units-container');
+    
+        if (offerType === 'units') {
+            offerAmountContainer.style.display = 'none';
+            offerUnitsContainer.style.display = 'block';
+            syncSliderWithInput('offer-units-amount', 'offer-units-slider');
+        } else {
+            offerAmountContainer.style.display = 'block';
+            offerUnitsContainer.style.display = 'none';
+        }
+    }
+    
+    function updateRequestOptions() {
+        const requestType = document.getElementById('request-type').value;
+        const requestAmountContainer = document.getElementById('request-amount-container');
+        const requestUnitsContainer = document.getElementById('request-units-container');
+    
+        if (requestType === 'units') {
+            requestAmountContainer.style.display = 'none';
+            requestUnitsContainer.style.display = 'block';
+            syncSliderWithInput('request-units-amount', 'request-units-slider');
+        } else {
+            requestAmountContainer.style.display = 'block';
+            requestUnitsContainer.style.display = 'none';
+        }
+    }
+
     function createTrade() {
         const offerType = document.getElementById('offer-type').value;
-        const offerAmount = parseInt(document.getElementById('offer-amount').value, 10);
         const requestType = document.getElementById('request-type').value;
-        const requestAmount = parseInt(document.getElementById('request-amount').value, 10);
-
+        let offerAmount, requestAmount;
+    
+        if (offerType === 'units') {
+            offerAmount = {
+                type: document.getElementById('offer-units').value,
+                quantity: parseInt(document.getElementById('offer-units-slider').value, 10)
+            };
+        } else {
+            offerAmount = parseInt(document.getElementById('offer-amount').value, 10);
+        }
+    
+        if (requestType === 'units') {
+            requestAmount = {
+                type: document.getElementById('request-units').value,
+                quantity: parseInt(document.getElementById('request-units-slider').value, 10)
+            };
+        } else {
+            requestAmount = parseInt(document.getElementById('request-amount').value, 10);
+        }
+    
         const trade = {
             offerType,
             offerAmount,
             requestType,
             requestAmount
         };
-
+    
         const tradeElement = `
             <div class="trader">
                 <div class="trader-header">
                     <h3>Your Trade</h3>
                 </div>
-                <p>Offering: ${trade.offerAmount} ${trade.offerType}</p>
-                <p>Wants: ${trade.requestAmount} ${trade.requestType}</p>
+                <p>Offering: ${typeof trade.offerAmount === 'object' ? trade.offerAmount.quantity + ' ' + trade.offerAmount.type : trade.offerAmount + ' Credits'}</p>
+                <p>Wants: ${typeof trade.requestAmount === 'object' ? trade.requestAmount.quantity + ' ' + trade.requestAmount.type : trade.requestAmount + ' Credits'}</p>
             </div>
         `;
         marketList.innerHTML += tradeElement;
-
+    
         closeCustomTradeModal();
     }
 
     window.createTrade = createTrade;
+    window.updateOfferOptions = updateOfferOptions;
+    window.updateRequestOptions = updateRequestOptions;
 
     document.getElementById('new-trade-btn').addEventListener('click', openCustomTradeModal);
+
+    syncSliderWithInput('offer-amount', 'offer-slider');
+    syncSliderWithInput('request-amount', 'request-slider');
 
     function syncSliderWithInput(inputId, sliderId) {
         const input = document.getElementById(inputId);
@@ -615,6 +667,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    syncSliderWithInput('offer-amount', 'offer-slider');
-    syncSliderWithInput('request-amount', 'request-slider');
+    syncSliderWithInput('offer-units-amount', 'offer-units-slider');
+    syncSliderWithInput('request-units-amount', 'request-units-slider');
+    
 });

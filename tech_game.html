@@ -220,27 +220,51 @@
             <div class="trade-options">
                 <div class="offer-section">
                     <label for="offer-type">What are you offering?</label>
-                    <select id="offer-type">
+                    <select id="offer-type" onchange="updateOfferOptions()">
                         <option value="money">Credits</option>
                         <option value="units">Units</option>
                     </select>
-                    <input type="number" id="offer-amount" min="0" value="0">
-                    <input type="range" id="offer-slider" class="slider" min="0" max="100000" value="0">
+                    <div id="offer-amount-container">
+                        <input type="number" id="offer-amount" min="0" value="0">
+                        <input type="range" id="offer-slider" class="slider" min="0" max="100000" value="0">
+                    </div>
+                    <div id="offer-units-container" style="display: none;">
+                        <select id="offer-units">
+                            <option value="ai">AI Research</option>
+                            <option value="cloud">Cloud Computing</option>
+                            <option value="blockchain">Blockchain Development</option>
+                        </select>
+                        <input type="number" id="offer-units-amount" min="0" max="10" value="0">
+                        <input type="range" id="offer-units-slider" class="slider" min="0" max="10" value="0">
+                    </div>
                 </div>
                 <div class="request-section">
                     <label for="request-type">What do you want?</label>
-                    <select id="request-type">
+                    <select id="request-type" onchange="updateRequestOptions()">
                         <option value="money">Credits</option>
                         <option value="units">Units</option>
                     </select>
-                    <input type="number" id="request-amount" min="0" value="0">
-                    <input type="range" id="request-slider" class="slider" min="0" max="100000" value="0">
+                    <div id="request-amount-container">
+                        <input type="number" id="request-amount" min="0" value="0">
+                        <input type="range" id="request-slider" class="slider" min="0" max="100000" value="0">
+                    </div>
+                    <div id="request-units-container" style="display: none;">
+                        <select id="request-units">
+                            <option value="ai">AI Research</option>
+                            <option value="cloud">Cloud Computing</option>
+                            <option value="blockchain">Blockchain Development</option>
+                        </select>
+                        <input type="number" id="request-units-amount" min="0" max="10" value="0">
+                        <input type="range" id="request-units-slider" class="slider" min="0" max="10" value="0">
+                    </div>
                 </div>
             </div>
             <button class="btn btn-secondary" onclick="closeCustomTradeModal()">Cancel</button>
             <button class="btn btn-primary" onclick="createTrade()">Create Trade</button>
         </div>
     </div>
+    
+    
 
     <script src="tech_game.js"></script>
 </body>
