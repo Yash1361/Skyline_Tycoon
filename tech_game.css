@@ -833,3 +833,83 @@ h2 { /* Section headings */
     border-radius: 5px;
     color: #f0f0f0;
 }
+
+/* Market Tab */
+#market {
+    background-color: rgba(0, 0, 0, 0.7); /* Slightly darker background for contrast */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.market-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+    gap: 20px;
+}
+
+.trader {
+    border: 2px solid #0f0; /* Green border for traders */
+    padding: 15px;
+    border-radius: 10px;
+    background-color: rgba(0, 50, 0, 0.8); /* Dark green background */
+    color: #fff;
+}
+
+.trader-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.trader img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.trade-btn {
+    background-color: #0f0; /* Green button */
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.trade-btn:hover {
+    background-color: #0a0; /* Darker green on hover */
+}
+
+/* Trade Modal */
+#trade-modal .modal-content {
+    background-color: rgba(0, 50, 0, 0.9); /* Darker green background */
+}
+
+#trade-modal h2 {
+    color: #0f0; /* Green heading */
+}
+
+#trade-modal .trade-options {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#trade-modal .offer-section {
+    text-align: center;
+}
+
+#trade-modal label {
+    color: #fff;
+}
+
+#trade-modal input[type="number"] {
+    width: 80px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #0f0; /* Green border */
+    color: #fff;
+    background-color: rgba(0, 50, 0, 0.8); /* Dark green background */
+}

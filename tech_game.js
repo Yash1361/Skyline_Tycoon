@@ -53,6 +53,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const tradersData = [
+        {
+            name: "Data Miner Dan",
+            avatar: "images/char 1.png",
+            offer: "10,000 Data Points",
+            wants: "$15,000" 
+        },
+        {
+            name: "Algorithm Alice",
+            avatar: "images/char 2.png",
+            offer: "Advanced AI Model",
+            wants: "$25,000" 
+        },
+        {
+            name: "Server Steve",
+            avatar: "images/char 3.png",
+            offer: "100TB Cloud Storage",
+            wants: "$18,000" 
+        }
+    ];
+
     function updateMoney(amount) {
         currentMoney += amount;
         moneyDisplay.textContent = `Credits: $${currentMoney.toLocaleString()}`;
@@ -332,6 +353,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    function openTradeModal(trader) {
+        document.getElementById('trade-modal-title').textContent = `Trade with ${trader.name}`;
+        document.getElementById('trade-modal-text').innerHTML = `
+            ${trader.name} is offering: <strong>${trader.offer}</strong><br>
+            In exchange for: <strong>${trader.wants}</strong>
+        `;
+        document.getElementById('make-offer-btn').onclick = () => {
+            handleMakeOffer(trader);
+        };
+        tradeModal.style.display = 'flex';
+    }
+
+    function closeTradeModal() {
+        tradeModal.style.display = 'none';
+    }
+
+    window.closeTradeModal = closeTradeModal;
+
+    function handleMakeOffer(trader) {
+        const offerAmount = parseInt(document.getElementById('your-offer-amount').value, 10);
+        showSuccessModal(`Offer sent to ${trader.name}. Offer Pending`);
+        closeTradeModal();
+    }
+
     const sabotageButtons = document.querySelectorAll('.sabotage-btn');
     sabotageButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -348,6 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const modal = document.getElementById('modal');
+    const tradeModal = document.getElementById('trade-modal');
 
     // Charts setup
     const investmentBreakdownChartCtx = document.getElementById('investmentBreakdownChart').getContext('2d');
@@ -486,5 +532,30 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSpyChart();
         toggleChartsVisibility();
     }, 1000);
-});
 
+    // Market setup
+    const marketList = document.querySelector('.market-list');
+
+    tradersData.forEach(trader => {
+        const traderElement = `
+            <div class="trader">
+                <div class="trader-header">
+                    <img src="${trader.avatar}" alt="${trader.name}">
+                    <h3>${trader.name}</h3>
+                </div>
+                <p>Offering: ${trader.offer}</p>
+                <p>Wants: ${trader.wants}</p>
+                <button class="trade-btn" data-trader='${JSON.stringify(trader)}'>Trade</button>
+            </div>
+        `;
+        marketList.innerHTML += traderElement;
+    });
+
+    const tradeButtons = document.querySelectorAll('.trade-btn');
+    tradeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const trader = JSON.parse(button.dataset.trader);
+            openTradeModal(trader);
+        });
+    });
+});

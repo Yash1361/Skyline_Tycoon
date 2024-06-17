@@ -23,7 +23,7 @@
                 <button class="nav-btn active" data-target="invest">Invest</button>
                 <button class="nav-btn" data-target="sabotage">Disrupt</button>
                 <button class="nav-btn" data-target="leaderboard">Industry Titans</button>
-                <button class="nav-btn" data-target="profile">Profile</button>
+                <button class="nav-btn" data-target="market">Market</button> <button class="nav-btn" data-target="profile">Profile</button>
             </nav>
         </div>
 
@@ -111,6 +111,12 @@
                 </div>
             </div>
 
+            <div class="tab-content" id="market">
+                <h2>Market</h2>
+                <div class="market-list">
+                    </div>
+            </div>
+
             <div class="tab-content" id="profile">
                 <h2>Player Profile</h2>
                 <div class="profile-content">
@@ -176,7 +182,24 @@
             <button class="btn btn-primary" id="confirm-modal-btn">Proceed</button>
         </div>
     </div>
-    
+
+    <div id="trade-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="trade-modal-title">Trade Offer</h2>
+            <p id="trade-modal-text"></p>
+            <div class="trade-options">
+                <div class="offer-section">
+                    <h3>Your Offer</h3>
+                    <label for="your-offer-amount">Amount:</label>
+                    <input type="number" id="your-offer-amount" min="0" value="0">
+                    <br>
+                    <button class="btn btn-primary" id="make-offer-btn">Make Offer</button>
+                </div>
+                </div>
+            <button class="btn btn-secondary" onclick="closeTradeModal()">Close</button>
+        </div>
+    </div>
+
     <div id="success-modal" class="modal">
         <div class="modal-content success-content">
             <p id="success-modal-text"></p>
